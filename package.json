@@ -1,0 +1,26 @@
+{
+  "name": "fwspace",
+  "main": "default.html",
+  "version": "0.5.0",
+  "description": "An ultimate workspace for web front-end developer",
+  "window": {
+    "toolbar": false,
+    "frame": false,
+    "position": "center",
+    "width": 1024,
+    "height": 600,
+    "min_width": 768,
+    "min_height": 480,
+    "icon": "icon.png"
+  },
+  "homepage": "https://faso.me/nwapp/fwspace",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mamboer/nwapp.git"
+  },
+  "dependencies": {
+    "fs-extra": "~0.6.1",
+    "jsftp":"~0.6.0",
+    "cssutil":"~0.0.1"
+  }
+}

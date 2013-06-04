@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>fwspace - Home</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="fwspace - An ultimate workspace for web front-end developer"/>
+		<meta name="author" content="levinhuang"/>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet"/>
+		<link href="css/style.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+
+	<body>
+		<script>
+		if (!localStorage['fwspace.appLoaded']) {
+			document.write(
+				'<div id="appLoader" class="mod_loader">'+
+					'<div class="mod_loader_bg"></div>'+
+					'<div class="mod_loader_bd">'+
+						'<div class="mod_loader_dot mod_loader_dot1"></div>'+
+						'<div class="mod_loader_dot mod_loader_dot2"></div>'+
+						'<div class="mod_loader_dot mod_loader_dot3"></div>'+
+						'<div class="mod_loader_dot mod_loader_dot4"></div>'+
+					'</div>'+
+				'</div>'
+			);
+		};
+		</script>
+		<div class="site_bg"></div>
+		<div class="navbar navbar-inverse navbar-indiebg navbar-abs-top">
+			<div class="navbar-inner">
+				<div class="navbar-innerbg"></div>
+				<div class="container-fluid">
+					<a id="btnNavbar" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="about.html">
+						<div class="mod_circle circle_box1">
+							<div class="mod_circlebg"></div>
+							<div class="mod_circlebd">
+								FW
+							</div>
+						</div>
+					</a>
+					<div id="navCollapse" class="nav-collapse">
+						<div class="pull-right win_acts">
+							<a id="btnMinSize" href="#" class="mod_btnapp mod_btnappmin" title="close"><i class="icon-resize-small icon-white"></i></a>
+							<a id="btnFullscreen" href="#" class="mod_btnapp mod_btnappfull" title="close"><i class="icon-fullscreen icon-white"></i></a>
+							<a id="btnClose" href="#" class="mod_btnapp mod_btnappclose" title="close"><i class="icon-off icon-white"></i></a>
+						</div>
+						<ul id="J_topnav" class="nav">
+							<li class="active"><a id="hero_unit_home_lnk" href="default.html">Home</a></li>
+							<li><a href="workspace.html">Workspaces</a></li>
+							<li><a href="setting.html">Settings</a></li>
+							<li><a href="about.html">About</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+
+		<div id="secA" class="container-fluid sec_A">
+			<div class="row-fluid row_A">
+				<div class="mod_panel">
+					<div class="panel_hd">
+						<div class="panel_hdin">
+                            <!--S 右侧操作 -->
+							<div class="pull-right cfg_acts">
+								<div id="btnGroupSVN" class="btn-group">
+									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-random"></i>SVN</button>
+									<button class="btn dropdown-toggle" data-toggle="dropdown">
+										<span class="caret"></span>
+									</button>
+									<ul id="svnOPList" class="dropdown-menu">
+										<li><a rel="1" href="javascript:;">Commit</a></li>
+										<li><a rel="2" href="javascript:;">Update</a></li>
+										<li><a rel="3" href="javascript:;">Show Logs</a></li>
+									</ul>
+								</div>
+								<div class="btn-group">
+									<button id="btnFtpUpload" class="btn"><i class="icon-cloud-upload"></i>FTP Upload<span id="lblCntFiles"></span></button>
+								</div>
+								<div class="btn-group">
+									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i>Workspace<span id="lblWorkspace"></span></button>
+									<button class="btn dropdown-toggle" data-toggle="dropdown">
+										<span class="caret"></span>
+									</button>
+									<ul id="wsList" class="dropdown-menu"></ul>
+								</div>
+							</div>
+                            <!--E 右侧操作 -->
+							<h1>Projects</h1>
+						</div>
+						<div class="panel_bg2"></div>
+					</div>
+					<div class="panel_bd">
+						<div id="projectMain" class="mod_flexbox project_main">
+							<div class="tabbable tabs-left fbox_sidebar">
+								<ul class="nav nav-tabs nav_project" id="projectNavList"></ul>
+							</div>
+							<div class="fbox_bd">
+								<div class="tab-content project_panes" id="projectPanelList"></div>
+							</div>
+							<div id="projectExt" class="fbox_sidebar project_ext hide">
+								<button id="btnCloseProjectExt" type="button" class="close" aria-hidden="true">&times;</button>
+								<div id="ftpUpload" ondragover="J.ftpUpload.onDragOver(event)" ondrop="J.ftpUpload.onDrop(event)" class="mod_panel ext_box ftp_upload hide">
+									<div class="panel_hdA">
+										<div class="ftpupd_sec ftpupd_hd">
+											<h3>FTP Upload</h3>
+										</div>
+									</div>
+									<div class="panel_bdA">
+										<div class="ftpupd_sec ftpupd_hd">
+											<div class="ftpupd_acts">
+												<button class="btn btn-primary btn-mini" id="btnUpdRedo">重试</button>
+												<button class="btn btn-mini" id="btnUpdAll">上传全部</button>
+												<button class="btn btn-mini" id="btnUpdReset">清空</button>
+											</div>
+										</div>
+										<div class="ftpupd_sec ftpupd_bd">
+											<ul id="fileListUpload" class="flist_upload"></ul>
+											<div id="ftpupdProgress" class="ftpupd_progress">
+												<div id="ftpupdProgressBD" class="progress_bd">0%</div>
+												<div id="ftpupdProgressBG" class="progress_bg"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!--/project_main-->
+					</div>
+				</div>
+			</div><!--/row-->
+
+		</div><!--/.fluid-container-->
+		<div id="fanMenu" class="fm_wrap">
+			<a href="javascript://" class="fm_btntoggle" title="Toggle Menu"><span>Toggle Menu</span></a>
+			<ul id="fanMenuList" class="fm_list">
+				<li><a id="btnAddFolder" href="#" rel="1" title="Add Existence"><i class="icon-folder-open-alt"></i></a></li>
+				<li><a id="btnCreateFolder" href="#" rel="2" title="Create New Project"><i class="icon-file-alt"></i></a></li>
+			</ul>
+			<input id="ipt_projectFolder" type="file" class="field_projectFolder" nwdirectory="true" name="projectFolder" style="display:none" nwworkingdir=""/>
+		</div>
+		<div class="mod_status">
+			<div id="appStatus" class="alert"></div>
+			<div id="projectTip" class="alert alert-tip tip_project"></div>
+			<div id="appTip" class="alert alert-tip" style="display:none;"></div>
+		</div>
+
+		<footer>
+			<p>&copy; ECD 2012~<script type="text/javascript">document.write((new Date()).getFullYear());</script></p>
+		</footer>
+
+		<!--Alert-->
+		<div id="appAlert" class="modal hide fade mod_alert" tabindex="-1" role="dialog" aria-labelledby="alertTitle" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+				<h3 id="alertTitle">Notice</h3>
+			</div>
+			<div class="modal-body" id="appAlertBody">
+			</div>
+		</div>
+		<!--/Alert-->
+
+        <!--S 项目编辑界面: add/new -->
+		<div id="projectEditor" class="modal modal-fixed fade mod_editor hide" tabindex="-1" role="dialog" aria-labelledby="editorTitle" aria-hidden="true">
+			<div class="modal-header">
+				<div class="modal-headerin">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+					<h3 id="editorTitle">Edit Project</h3>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div id="editorBody" class="modal-bodyin">
+					<div class="form-horizontal form_1">
+                        <input type="hidden" class="input-block-level field_item field_id" name="id" />
+
+                        <!--S 选择工作空间 -->
+						<div id="cg_workspace" class="control-group">
+							<label class="control-label">Workspace</label>
+							<div class="controls">
+                                <select class="field_item" name="rootPath" id="wsOption">
+                                    <option selected="selected">选择工作空间</option>
+                                </select>
+							</div>
+						</div>
+                        <!--E 选择工作空间 -->
+						<div id="cg_name" class="control-group">
+							<label class="control-label" for="ipt_name">Name</label>
+							<div class="controls">
+								<input type="text" id="ipt_name" class="field_item field_name" name="name" placeholder="项目名称,支持字母，数字，中文"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="modal-footerin">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button id="btnDelete" style="display:none" class="btn">Delete</button>
+					<button id="btnSave" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+        <!--E 项目编辑界面 -->
+
+		<!--Templates-->
+		<script type="x-jquery-tpl" id="tplProjNavItem">
+			<li id="projectItem%id%">
+				<a class="lnk_proj" id="project%id%" rel="%id%" href="#projectPanel%id%" data-toggle="tab" data-path="%path%">%name%</a>
+				<div class="navitem_projActs">
+					<a rel="%id%" href="javascript:;" data-path="%path%" class="btn_closeproj"><i class="icon-remove-sign"></i></a>
+				</div>
+			</li>
+		</script>
+		<script type="text/x-jquery-tpl" id="tplProjectItem">
+            <li data-fullPath="%projectFullPath%">%projectName%</li>
+		</script>
+		<script type="text/x-mustache-tpl" id="tplProjectDir">
+			<div class="project_dir" data-dir="{{path}}">
+				<div class="pdir_hd">
+					{{#dirObj}}
+					<h3>{{flag}} ({{cntFile}})</h3>
+					{{/dirObj}}
+				</div>
+				<div class="pdir_bd">
+				{{#isOk}}
+					{{#cntFile}}
+					<ul class="list_file clearfix">
+						{{#files}}
+						<li draggable="true" data-id="{{id}}" data-name="{{name}}" data-path="{{path}}" ondragstart="J.ftpUpload.onDragStart(event)" ondragend="J.ftpUpload.onDragEnd(event)">
+							{{#isImg}}
+							<div class="item_file item_img" style="background-image:url('{{url}}')">
+							{{/isImg}}
+							{{^isImg}}
+							<div class="item_file">
+							{{/isImg}}
+								<div class="com_bd file_bd">
+									<div class="com_bg"></div>
+									<div class="com_bd">
+										{{#stat}}
+										<div class="file_meta file_size">{{size1}} kb</div>
+										<div class="file_meta file_mtime">{{mtime1}}</div>
+										{{/stat}}
+									</div>
+								</div>
+								<div class="file_ft">
+									<div class="com_bg"></div>
+									<div class="com_bd ft_bd">
+										<a href="#{{path}}" data-path="{{path}}">{{name}}</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						{{/files}}
+					</ul>
+					{{/cntFile}}
+					{{^cntFile}}
+					<div class="alert alert-info">No files found!</div>
+					{{/cntFile}}
+				{{/isOk}}
+				{{^isOk}}
+					<div class="alert alert-error">{{errStr}}</div>
+				{{/isOk}}
+				</div>
+			</div>
+		</script>
+		<!--/Templates-->
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/jquery.fanmenu.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/lib/date.js"></script>
+		<script src="js/lib/mustache.js"></script>
+		<script src="js/lib/j.core.js"></script>
+		<script src="js/lib/j.evalTpl.js"></script>
+		<script src="js/lib/j.endsWidth.js"></script>
+		<script src="js/data.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/alert.js"></script>
+		<script src="js/data.Setting.js"></script>
+		<script src="js/data.Workspace.js"></script>
+		<script src="js/data.dir.js"></script>
+		<script src="js/data.Project.js"></script>
+		<script src="js/editor.project.js"></script>
+		<script src="js/ftpUpload.js"></script>
+		<script src="js/svn.js"></script>
+		<script src="js/default.js"></script>
+		<script type="text/javascript">
+			J.init({});
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>fwspace - Settings</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="fwspace - An ultimate workspace for web front-end developer"/>
+		<meta name="author" content="levinhuang"/>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet"/>
+		<link href="css/style.css" rel="stylesheet"/>
+	</head>
+
+	<body>
+		<div class="site_bg"></div>
+		<div class="navbar navbar-inverse navbar-indiebg navbar-abs-top">
+			<div class="navbar-inner">
+				<div class="navbar-innerbg"></div>
+				<div class="container-fluid">
+					<a id="btnNavbar" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="about.html">
+						<div class="mod_circle circle_box1">
+							<div class="mod_circlebg"></div>
+							<div class="mod_circlebd">
+								FW
+							</div>
+						</div>
+					</a>
+					<div id="navCollapse" class="nav-collapse">
+						<div class="pull-right win_acts">
+							<a id="btnMinSize" href="#" class="mod_btnapp mod_btnappmin" title="close"><i class="icon-resize-small icon-white"></i></a>
+							<a id="btnFullscreen" href="#" class="mod_btnapp mod_btnappfull" title="close"><i class="icon-fullscreen icon-white"></i></a>
+							<a id="btnClose" href="#" class="mod_btnapp mod_btnappclose" title="close"><i class="icon-off icon-white"></i></a>
+						</div>
+						<ul id="J_topnav" class="nav">
+							<li><a id="hero_unit_home_lnk" href="default.html">Home</a></li>
+							<li><a href="workspace.html">Workspaces</a></li>
+							<li class="active"><a href="setting.html">Settings</a></li>
+							<li><a href="about.html">About</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+
+		<div id="secA" class="container-fluid sec_A">
+			<div class="row-fluid row_A">
+				<div class="mod_panel">
+					<div class="panel_hd">
+						<div class="panel_hdin">
+							<div class="pull-right cfg_acts">
+								<button id="btnSave" class="btn btn-primary btn_save" title="Save">Save</button>
+							</div>
+							<h1>System Settings</h1>
+						</div>
+						<div class="panel_bg2"></div>
+					</div>
+					<div class="panel_bd">
+						<div id="frmMain" class="modal-bodyin">
+							<div class="form-horizontal form_1">
+								<div id="cg_exeCss" class="control-group">
+									<label class="control-label" for="ipt_exeCss">Css打开程序</label>
+									<div class="controls">
+										<label for="ipt_exeCss1">
+											<input id="ipt_exeCss1" type="file" accept=".exe" class="mod_inputfile field_exeCss" data-target="ipt_exeCss" name="exeCss" style="display:none"/>
+											<input id="ipt_exeCss" readonly="readonly" type="text" class="input-xlarge field_item field_exeCss" name="exeCss"/>
+											<i class="icon-file"></i>
+										</label>
+
+									</div>
+								</div>
+								<div id="cg_exeHtml" class="control-group">
+									<label class="control-label" for="ipt_exeHtml">Html打开程序</label>
+									<div class="controls">
+										<label for="ipt_exeHtml1">
+											<input id="ipt_exeHtml1" type="file" accept=".exe" class="mod_inputfile field_exeHtml" data-target="ipt_exeHtml" name="exeHtml" style="display:none"/>
+											<input id="ipt_exeHtml" readonly="readonly" type="text" class="input-xlarge field_item field_exeHtml" name="exeHtml"/>
+											<i class="icon-file"></i>
+										</label>
+									</div>
+								</div>
+								<div id="cg_exeImg" class="control-group cg_exeImg">
+									<label class="control-label" for="ipt_exeImg">IMG打开程序</label>
+									<div class="controls">
+										<label for="ipt_exeImg1">
+											<input id="ipt_exeImg1" type="file" accept=".exe" class="mod_inputfile field_exeImg" data-target="ipt_exeImg" name="exeImg" style="display:none"/>
+											<input id="ipt_exeImg" readonly="readonly" type="text" class="input-xlarge field_item field_exeImg" name="exeImg"/>
+											<i class="icon-file"></i>
+										</label>
+									</div>
+								</div>
+								<div id="cg_exeLess" class="control-group cg_exeLess">
+									<label class="control-label" for="ipt_exeImg">LESS打开程序</label>
+									<div class="controls">
+										<label for="ipt_exeLess1">
+											<input id="ipt_exeLess1" type="file" accept=".exe" class="mod_inputfile field_exeLess" data-target="ipt_exeLess" name="exeLess" style="display:none"/>
+											<input id="ipt_exeLess" readonly="readonly" type="text" class="input-xlarge field_item field_exeLess" name="exeLess"/>
+											<i class="icon-file"></i>
+										</label>
+									</div>
+								</div>
+								<div id="cg_searchFlag" class="control-group cg_searchFlag">
+									<label class="control-label" for="ipt_searchFlag">路径标识</label>
+									<div class="controls">
+										<label for="ipt_searchFlag">
+											<input id="ipt_searchFlag" type="text" class="input-xlarge field_item field_searchFlag" name="searchFlag"/>
+										</label>
+									</div>
+								</div>
+								<div id="cg_ignoreFolders" class="control-group cg_ignoreFolders">
+									<label class="control-label" for="ipt_ignoreFolders">忽略文件夹</label>
+									<div class="controls">
+										<label for="ipt_ignoreFolders">
+											<input id="ipt_ignoreFolders" type="text" class="input-xlarge field_item field_ignoreFolders" name="ignoreFolders"/>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!--/row-->
+
+		</div><!--/.fluid-container-->
+
+		<div class="mod_status">
+			<div id="appStatus" class="alert"></div>
+			<div id="appTip" class="alert alert-tip" style="display:none;"></div>
+		</div>
+
+		<footer>
+			<p>&copy; ECD 2012~<script type="text/javascript">document.write((new Date()).getFullYear());</script></p>
+		</footer>
+
+		<!--Alert-->
+		<div id="appAlert" class="modal hide fade mod_alert" tabindex="-1" role="dialog" aria-labelledby="alertTitle" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+				<h3 id="alertTitle">Notice</h3>
+			</div>
+			<div class="modal-body" id="appAlertBody">
+			</div>
+		</div>
+		<!--/Alert-->
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/lib/date.js"></script>
+		<script src="js/lib/j.core.js"></script>
+		<script src="js/lib/j.evalTpl.js"></script>
+		<script src="js/lib/j.endsWidth.js"></script>
+		<script src="js/data.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/alert.js"></script>
+		<script src="js/data.Setting.js"></script>
+		<script src="js/data.Workspace.js"></script>
+		<script src="js/setting.js"></script>
+		<script type="text/javascript">
+			J.init({});
+		</script>
+
+	</body>
+</html>
