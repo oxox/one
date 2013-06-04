@@ -10,16 +10,12 @@ J(function($,p,pub){
 	pub.id="data";
     var fs = require('fs-extra');
 
-	p.C = {
-		init:function(){
-			J.db = openDatabase('fwspace','1.0','db for fwspace',4*1024*1024);
-			J.dbLocal = localStorage;
-		}
-	};
-
-	pub.packageJson = fs.readJsonSync('package.json');
-
+    pub.packageJson = fs.readJsonSync('package.json');
 	pub.version = pub.packageJson.version;
+	
+	J.db = openDatabase(pub.packageJson.name,'1.0','db for '+pub.packageJson.name,4*1024*1024);
+	J.dbLocal = localStorage;
+
 	/**
 	 * 获取当前工作空间
 	 * @param {Array} wsList 工作空间json数组

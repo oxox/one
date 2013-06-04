@@ -1,10 +1,12 @@
 {
-  "name": "fwspace",
+  "name": "One",
   "main": "default.html",
   "version": "0.5.0",
-  "description": "An ultimate workspace for web front-end developer",
+  "keywords":["one","node-webkit"],
+  "description": "All-in-one Muramasa sword for front-end developer",
   "window": {
-    "toolbar": false,
+	"show":false,
+    "toolbar": true,
     "frame": false,
     "position": "center",
     "width": 1024,
@@ -13,10 +15,10 @@
     "min_height": 480,
     "icon": "icon.png"
   },
-  "homepage": "https://faso.me/nwapp/fwspace",
+  "homepage": "https://oxox.io/one",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mamboer/nwapp.git"
+    "url": "https://github.com/oxox/one.git"
   },
   "dependencies": {
     "fs-extra": "~0.6.1",

@@ -3,7 +3,7 @@ J(function($,p,pub){
 	pub.id ="base";
 	pub.userName = process.env['USERNAME'];
 	pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
-	pub.dataRoot = pub.appRoot+"data\\fwspace\\";
+	pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',J.data.packageJson.name);
 	pub.initFile = pub.dataRoot+"app.ini";
 	pub.$win = $(window);
 
@@ -12,6 +12,11 @@ J(function($,p,pub){
 
 	pub.gui = gui;
 	pub.fs =fs;
+	
+	//https://github.com/rogerwang/node-webkit/wiki/Show-window-after-page-is-ready
+	window.onload=function(){
+		gui.Window.get().show();
+	};
 	
 	p.V = {
 		tpl0:'Welcome',
@@ -191,7 +196,7 @@ J(function($,p,pub){
 		var rock = function(){
 			$('#appLoader').remove();
 			cbk&&cbk();
-			localStorage['fwspace.appLoaded']="1";
+			localStorage[J.data.packageJson.name+'.appLoaded']="1";
 		};
 		if (!delay) {
 			rock();
