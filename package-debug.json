@@ -6,7 +6,7 @@
   "description": "All-in-one Muramasa sword for front-end developer",
   "window": {
 	"show":false,
-    "toolbar": false,
+    "toolbar": true,
     "frame": false,
     "position": "center",
     "width": 1024,

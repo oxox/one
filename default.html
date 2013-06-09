@@ -14,21 +14,6 @@
 	</head>
 
 	<body>
-		<script>
-		if (!localStorage['One.appLoaded']) {
-			document.write(
-				'<div id="appLoader" class="mod_loader">'+
-					'<div class="mod_loader_bg"></div>'+
-					'<div class="mod_loader_bd">'+
-						'<div class="mod_loader_dot mod_loader_dot1"></div>'+
-						'<div class="mod_loader_dot mod_loader_dot2"></div>'+
-						'<div class="mod_loader_dot mod_loader_dot3"></div>'+
-						'<div class="mod_loader_dot mod_loader_dot4"></div>'+
-					'</div>'+
-				'</div>'
-			);
-		};
-		</script>
 		<div class="site_bg"></div>
 		<div class="navbar navbar-inverse navbar-indiebg navbar-abs-top">
 			<div class="navbar-inner">
@@ -39,24 +24,17 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
+					<div class="pull-right win_acts">
+						<a id="btnMinSize" href="#" class="mod_btnapp mod_btnappmin" title="close"><i class="icon-resize-small icon-white"></i></a>
+						<a id="btnFullscreen" href="#" class="mod_btnapp mod_btnappfull" title="close"><i class="icon-fullscreen icon-white"></i></a>
+						<a id="btnClose" href="#" class="mod_btnapp mod_btnappclose" title="close"><i class="icon-off icon-white"></i></a>
+					</div>
 					<a class="brand" href="about.html">
-						<div class="mod_circle circle_box1">
-							<div class="mod_circlebg"></div>
-							<div class="mod_circlebd">
-								FW
-							</div>
-						</div>
+						<span class="mod_logo"></span>
 					</a>
 					<div id="navCollapse" class="nav-collapse">
-						<div class="pull-right win_acts">
-							<a id="btnMinSize" href="#" class="mod_btnapp mod_btnappmin" title="close"><i class="icon-resize-small icon-white"></i></a>
-							<a id="btnFullscreen" href="#" class="mod_btnapp mod_btnappfull" title="close"><i class="icon-fullscreen icon-white"></i></a>
-							<a id="btnClose" href="#" class="mod_btnapp mod_btnappclose" title="close"><i class="icon-off icon-white"></i></a>
-						</div>
 						<ul id="J_topnav" class="nav">
 							<li class="active"><a id="hero_unit_home_lnk" href="default.html">Home</a></li>
-							<li><a href="workspace.html">Workspaces</a></li>
-							<li><a href="setting.html">Settings</a></li>
 							<li><a href="about.html">About</a></li>
 						</ul>
 					</div><!--/.nav-collapse -->
