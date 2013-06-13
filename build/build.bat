@@ -1,6 +1,6 @@
 @echo off
 
-set APP_NAME=one
+set APP_NAME=One
 set APP_VERSION=
 set APP_SRCFILES=@files.txt
 set NW_FOLDER=..\..\..\mamboer\nwapp\nw
