@@ -1,14 +1,7 @@
-..\assets
-..\css
-..\font
-..\img
-..\js
-..\less
 ..\node_modules
 ..\public
 ..\routes
 ..\views
 ..\app.js
 ..\default.html
-..\icon.png
 ..\package.json

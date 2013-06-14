@@ -13,7 +13,7 @@
     "height": 640,
     "min_width": 768,
     "min_height": 480,
-    "icon": "icon.png"
+    "icon": "public/images/icon.png"
   },
   "homepage": "https://oxox.io/one",
   "repository": {

@@ -1,5 +1,27 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	div#sidebar
+		header#header
+			div#logo
+				a(href='/')
+					img(alt='oxox',src='/images/icon.png')
+					| #{appName}
+
+			p#tagline #{title}
+		nav#menu
+			ul#menu-main-menu.main-menu
+				li.parent.opened
+					p
+						a(href='/',style='color: rgb(255, 255, 255);') Installed Apps
+					div
+						ul#navList.sub-menu
+							li.selected
+								p
+									a(data-all='true',data-filter='*',href='/',title='all') All (#{appData.cnt})
+		form#responsiveMenu
+			select
+				option.selected(data-href='#') All
+		footer#copy
+			p Copyright &copy; #{year} oxox.io
+		a#close(href='javascript:;') close sidebar
