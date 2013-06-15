@@ -1,15 +1,14 @@
-
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-	res.render('index', { 
-		title: 'One!All-in-one Muramasa sword for front-end developer!',
-		appData:{
-			cnt:10
-		},
-		appName:'One!',
-		year:new Date().getFullYear()
-	});
+module.exports = {
+	index:function(req,res){
+		res.render('index', { 
+			title: res.app.locals.package.description,
+			appData:{
+				cnt:10
+			},
+			year:new Date().getFullYear()
+		});
+	},
+	about:function(req,res){
+		res.send("about:respond with a resource");
+	}
 };

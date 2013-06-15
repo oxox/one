@@ -461,7 +461,7 @@ td {
   vertical-align: top;
 }
 .hide-text {
-  font: 0/0 a;
+  font: NaN a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;

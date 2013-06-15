@@ -6,7 +6,7 @@ block content
 			div#logo
 				a(href='/')
 					img(alt='oxox',src='/images/icon.png')
-					| #{appName}
+					| #{locals.package.name} V#{locals.package.version}
 
 			p#tagline #{title}
 		nav#menu
