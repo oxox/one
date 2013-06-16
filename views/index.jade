@@ -1,6 +1,7 @@
 extends layout
 
 block content
+	//- #sidebar
 	div#sidebar
 		header#header
 			div#logo
@@ -25,3 +26,38 @@ block content
 		footer#copy
 			p Copyright &copy; #{year} oxox.io
 		a#close(href='javascript:;') close sidebar
+	//- #content
+	div#content.clearfix
+		div#detailBox
+			//- S-detail
+			article#popDetail.portfolio.type-portfolio.status-publish.hentry.project.clearfix.hidden
+				div.project_hd
+					h3#detailName
+					a.close(href='javascript:;') &times;
+				iframe#popDetailIframe(frameborder='0',width='910',height='448')
+			//- E-detail
+			section#portfolio.folioGrid.clearfix
+				ul#cateItemList.folioCategories.hidden
+
+			div#projectHover.hidden.hasButtons
+				a.btnNext.hoverBack(href='#') Next
+				a.btnClose.hoverBack(href='#') Close
+				a.btnPrev.hoverBack(href='#') Prev
+
+		//- top footer
+		footer#topFooter.footer
+			div.left
+				div.widget.clearfix.widget_search
+					form#searchform.searchBox(action='/',method='get',name="searchform")
+						label.screen-reader-text.hidden(for='s') Search for:
+						input#s(data-value='搜索',name='s',type='text',value='搜索')
+			div.right
+				div.widget.clearfix
+					p.developedTeam Welcome,
+						strong #{locals.userName}
+
+		//- bottom footer
+		footer#bottomFooter.footer
+			div.left #{locals.appRoot}
+			a#top(href='#') Go to Top
+				span ↑

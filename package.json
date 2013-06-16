@@ -5,7 +5,7 @@
   "keywords":["one","node-webkit"],
   "description": "All-in-one Muramasa sword for front-end developer",
   "window": {
-	"show":false,
+	"show":true,
     "toolbar": false,
     "frame": false,
     "position": "center",
