@@ -1,17 +1,22 @@
 //TODO:make it cool http://html5demos.com/history
 J(function($,p,pub){
-	pub.id ="base";
-	pub.userName = process.env['USERNAME'];
-	pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
-	pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',J.data.packageJson.name);
-	pub.initFile = pub.dataRoot+"app.ini";
-	pub.$win = $(window);
-
+	
 	var gui = require('nw.gui'),
 		fs = require('fs-extra');
 
+	pub.id ="base";
+	pub.userName = process.env['USERNAME'];
+	pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
+	pub.package = fs.readJsonSync('package.json');
+	pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',pub.package.name);
+	pub.initFile = pub.dataRoot+"app.ini";
+	pub.$win = $(window);
+
+	
 	pub.gui = gui;
 	pub.fs =fs;
+	
+	
 	
 	//https://github.com/rogerwang/node-webkit/wiki/Show-window-after-page-is-ready
 	window.onload=function(){
@@ -87,7 +92,7 @@ J(function($,p,pub){
 				tray = new gui.Tray({ 
 					'icon': 'icon.png'
 				});
-				tray.tooltip = J.data.packageJson.name+'-v'+J.data.packageJson.version;
+				tray.tooltip = pub.package.name+'-v'+pub.package.version;
 				// Show window and remove tray when clicked
 				tray.on('click', function() {
 					win.show();

@@ -26,8 +26,6 @@
   },
   "dependencies": {
   	"fs-extra": "~0.6.1",
-    "express": "3.2.6",
-    "jade": "*",
-    "less-middleware": "*"
+    "jade": "*"
   }
 }
