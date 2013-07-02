@@ -1,7 +1,3 @@
 ..\node_modules
-..\public
-..\routes
-..\views
-..\app.js
-..\default.html
+..\assets
 ..\package.json
