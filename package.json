@@ -1,6 +1,6 @@
 {
   "name": "One",
-  "main": "default.html",
+  "main": "assets/index.html",
   "version": "0.0.1",
   "keywords":["one","node-webkit"],
   "description": "All-in-one Muramasa sword for front-end developer",
@@ -13,7 +13,7 @@
     "height": 640,
     "min_width": 768,
     "min_height": 480,
-    "icon": "public/images/icon.png"
+    "icon": "assets/img/icon.png"
   },
   "homepage": "https://oxox.io/one",
   "repository": {
@@ -21,9 +21,6 @@
     "url": "https://github.com/oxox/one.git"
   },
   "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
   "dependencies": {
   	"fs-extra": "~0.6.1",
     "jade": "*"
