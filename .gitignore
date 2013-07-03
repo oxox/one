@@ -1,1 +1,4 @@
 gh-pages/
+*.dll
+nw.exe
+nw.pak
