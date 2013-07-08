@@ -23,6 +23,7 @@
   "private": true,
   "dependencies": {
   	"fs-extra": "~0.6.1",
-    "jade": "*"
+    "jade": "*",
+    "async":"~0.2.9"
   }
 }

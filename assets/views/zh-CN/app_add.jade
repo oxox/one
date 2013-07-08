@@ -1,0 +1,18 @@
+div.config_pop.open
+	form.form-horizontal
+		fieldset
+			div.control-group
+				label.control-label(for='appLink') 应用地址：
+				div.controls
+					input#appLink
+			div.control-group
+				label.control-label(for='appName') 应用标题：
+				div.controls
+					input#appName
+			div.control-group
+				label.control-label(for='appDisc') 应用描述：
+				div.controls
+					textarea#appDisc(cols="30",rows="10")
+			div.form-actions
+				button.btn.btn-primary(type="submit") 完成
+				button.btn 取消
