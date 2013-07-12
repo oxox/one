@@ -1,4 +1,4 @@
-(function() {
+(function($) {
     var j = {
         getItem: function(a) {
             return !a || !this.hasItem(a) ? null : unescape(document.cookie.replace(RegExp("(?:^|.*;\\s*)" + escape(a).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"))
@@ -213,4 +213,4 @@
             }
         };
     $(document).ready(a.init)
-})();
+})(jQuery);
