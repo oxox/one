@@ -4,7 +4,8 @@
  * @version 1.0.0
  */
 (function($){
-    var $win = $(window);
+    var $win = $(window),
+        evtNamespace = ".ModernUI";
     /**
      * Internal core class for mordenui
      * @class modernui
@@ -29,27 +30,41 @@
     };
     model.prototype = {
         _init: function () {
-            
+
             this.window_width = 0;
             this.window_height = 0;
             this.$widget_sidebar = this.opts.cssWidgetSidebar.charAt(0)==='#'?
                                     $(this.opts.cssWidgetSidebar):
                                     this.$container.find(this.opts.cssWidgetSidebar);
-            this.$widgets= this.$d.find(this.opts.cssWidget);
+            this.$widgets= this.$container.find(this.opts.cssWidget);
             this.$widget_containers= this.$container.find(this.opts.cssWidgetContainer);
             this.container_width = this.$container.width();
-            this.is_touch_device= "ontouchstart" in document.documentElement ? true : false;
+            this.is_touch_device= !!("ontouchstart" in document.documentElement);
             this.title_prefix= this.opts.title_prefix;
+
             this._initEvt();
             
             this.widget_open= !1;
             this.dragging_x= 0;
             this.left= 60;
-            this.widget_page_data= [];
+
+            this._animateWidgets();
             
             //preview module
             model.preview._init(this.opts);
-            
+        },
+        _animateWidgets:function(){
+            //widget effect
+            $('body').addClass("loaded");
+            this.$widgets.each(function(i,o) {
+                o = $(o);
+                setTimeout(function() {
+                    o.removeClass("unloaded");
+                    setTimeout(function() {
+                        o.removeClass("animation")
+                    }, 300)
+                }, 100 * i);
+            });
         },
         _initEvt:function(){
             var me = this;
@@ -60,9 +75,13 @@
                 if ( (!e.state) || (!e.state.url) ) {
                     return;
                 }
-                //TODO:open e.state.url
+                me.openWidget(e.state.id);
             });
-           
+
+            this.$container.on('click'+evtNamespace,this.opts.cssWidget,function(e){
+                me.openWidget(this.getAttribute('data-id'));
+                return false;
+            });
         },
         _onResize:function(){
             this.window_width = $win.width();
@@ -75,7 +94,7 @@
             model.preview.destroy(id);
         },
         openWidget : function(id){
-            model.preview.show($('#'+id));
+            model.preview.show(id);
         },
         //update the options
         _update: function (opts,reInit) {
@@ -88,19 +107,36 @@
 
     //preview模块
     model.preview = {
-        suffix:'-preview',
+        suffix:'-detail',
         activeId:null,
         zIndex:1,
         cache:{},
         _init:function(opts){
             this.opts = opts;
             this.$dom = $(this.opts.cssWidgetPreview);
+            this.$detailBox = $(this.opts.cssWidgetDetailBox);
+            this.$loading = $(this.opts.cssWidgetLoading).modernloading({autoStart:false});
         },
-        show:function($widget){
-            var id = $widget[0].id,
+        showLoading:function(css){
+            this.$loading.modernloading('start');
+            this.$dom.addClass('open')
+                .css(css);
+        },
+        hideLoading:function(){
+            this.$loading.modernloading('stop');
+            this.$dom
+                .css({
+                    'background-image':'none'
+                });
+        },
+        show:function(id){
+            var $widget = $('#widget_'+id),
                 data = $widget.data();
             data.title = this.opts.title_prefix+data.name;
             if (data.target&&data.target==='_blank') {
+                if(this.opts.onShowExternal){
+                    return this.opts.onShowExternal.call(this,data);
+                }
                 return window.open(data.url,"_blank");
             };
             
@@ -113,31 +149,28 @@
                 'background-image':$widget.css("background-image")
             };
             
-            this.$dom.addClass('open')
-                .css(css);
+            this.showLoading(css);
             
             if(this.cache[id]){
                 return this.active(id);
             };
             
-            model.history.set(data,true);
+            model.history.set(data,true,this.opts.baseUrl);
             
             //new preview
-            this._loadWidget(data);
-            this.cache[id]={
-                $dom:$widget
-            };
-            this.active(id);
-            
-        },
-        active:function(id){
-            this.cache[id].$dom.css({
-                'z-index':this.zIndex++
+            this._loadWidget(data,function(widgetData){
+                $win.trigger('onWidgetLoaded'+evtNamespace,[widgetData]);
+                model.preview.cache[widgetData.id]=widgetData;
+                model.preview.active(widgetData.id);
             });
-            this.activeId = id;
+        },
+        active:function(widgetId){
+            this.activeId = widgetId;
+            $('#'+this.getId(widgetId)).addClass('open');
+            this.hideLoading();
         },
         close:function(widgetId){
-            
+            $('#'+this.getId(widgetId)).removeClass('open');
         },
         destroy:function(widgetId){
             var id = this.getId(widgetId);
@@ -146,61 +179,48 @@
         getId:function(widgetId){
             return (widgetId+this.suffix);
         },
-        _loadWidget:function(widgetData){
-            var d = b.data("name"),
-                e = function(b) {
-                    a.widget_preview.css("background-image", "none");
-                    var c = $("#widget_preview_content");
-                    c.length ? c.html(b) : c = $("<div>").attr("id", "widget_preview_content").insertAfter(a.widget_sidebar).html(b);
-                    "true" !== j.getItem("melonhtml5_metro_ui_sidebar_first_time") && (a.widget_sidebar.addClass("open"), a.widget_sidebar.mouseenter(function() {
-                        j.setItem("melonhtml5_metro_ui_sidebar_first_time", "true", Infinity);
-                        $(this).removeClass("open")
-                    }))
-                },
-                h = (new Date).getTime();
-            a.widget_preview.children("div.dot").remove();
-            for (var f = 1; 7 >= f; f++) $("<div>").addClass("dot").css("transition", "right " + (0.6 + f / 10).toFixed(1) + "s ease-out").prependTo(a.widget_preview);
-            var g = function() {
-                    var a = $("div.dot");
-                    a.length && (a.toggleClass("open"), setTimeout(g, 1300))
-                },
-                k = function(b) {
-                    var c = (new Date).getTime() - h;
-                    1300 < c ? (a.widget_preview.children("div.dot").remove(), "undefined" !== typeof b && b()) : setTimeout(function() {
-                        a.widget_preview.children("div.dot").remove();
-                        "undefined" !== typeof b && b()
-                    }, 1300 - c)
-                };
-            a.widget_preview.width();
-            g();
-            "undefined" === typeof c && (c = !0);
-            c && void 0 !== a.widget_page_data[d] ? k(function() {
-                e(a.widget_page_data[d])
-            }) : (f = $.trim(b.data("url")), 0 < f.length && $.ajax({
-                url: f,
-                cache: !1,
-                type: "POST",
-                data: {},
-                beforeSend: function() {},
-                complete: function() {},
-                error: function() {},
-                success: function(b) {
-                    k(function() {
-                        a.widget_page_data[d] = b;
-                        e(b)
-                    })
-                }
-            }))
+        exists:function(widgetId){
+            return ($('#'+this.getId(widgetId)).length>0);
+        },
+        _loadWidget:function(widgetData,cbk){
+            if(this.exists(widgetData.id)){
+               cbk(widgetData);
+                return;
+            };
+
+            $win.trigger('onWidgetLoading'+evtNamespace,[widgetData]);
+
+            if(this.opts.previewInIframe){
+                this.$detailBox.append($.fn.modernui.evalTpl(this.opts.tplWidgetDetail2,widgetData));
+                $('#if_'+this.getId(widgetData.id)).on('load',function(e){
+                    cbk(widgetData);
+                });
+                return;
+            }
+            var jqXhr = $.ajax({
+                url:widgetData.url,
+                cache:false,
+                type:'GET'
+            });
+            jqXhr.always(function(xhr,txtStatus,err){
+                //do  nothing
+            }).done(function(data,txtStatus,xhr){
+                model.preview.$detailBox.append(data);
+                cbk(widgetData);
+            }).fail(function(xhr,txtStatus,err){
+                cbk(null,err);
+            });
         }
     };
 
     //history模块
     model.history={
-        set: function (stateObj,pushState) {
+        set: function (stateObj,pushState,baseUrl) {
             this.value = stateObj;
+            baseUrl = baseUrl||'';
             //更新state
             var m = pushState === true ? "pushState" : "replaceState";
-            history[m](stateObj, stateObj.title||document.title, stateObj.url);
+            history[m](stateObj, stateObj.title||document.title, baseUrl+"#"+stateObj.url);
         },//set
         get: function () {
             return this.value;
@@ -216,15 +236,12 @@
      * @return {Object} jQuery Object
      */
     $.fn.modernui = function (opts) {
-
-
         // Set the options.
         var optsType = typeof (opts),
             opts1 = optsType !== 'string' ? $.extend(true, {}, $.fn.modernui.defaults, opts || {}) : $.fn.modernui.defaults,
             args = arguments;
 
         return this.each(function () {
-
             var $me = $(this),
                 instance = $me.data("modernui");
             if (instance) {
@@ -256,12 +273,28 @@
         cssWidget:'.widget',
         cssWidgetContainer:'.widget_container',
         cssWidgetPreview:'#widget_preview',
+        cssWidgetDetailBox:'#widget_detail_box',
         cssWidgetSidebar:'#widget_sidebar',
-        useIframe:true,
+        cssWidgetLoading:'#widget_loading',
+        previewInIframe:true,
+        baseUrl:location.href,
         title_prefix:'One - ',
-        tplActiveLnk: '<li class="active%classes%"><a href="javascript://">%text%</a></li>',
-        tplLnk: '<li class="%classes%"><a class="pg_item" data-pgidx="%curPage%" href="%linkTo%">%text%</a></li>',
-        tplEllipse: '<li class="disabled"><a href="javascript://">%text%</a></li>'
+        tplWidgetDetail1:'<div id="%id%-detail" class="widget_detail">%html%</div>',
+        tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><iframe id="if_%id%-detail" src="%url%" frameborder="0"></iframe></div>'
     };
-    
+    /**
+     * simple template utility method
+     * @param str template string
+     * @param data template data
+     * @returns {String}
+     */
+    $.fn.modernui.evalTpl = function (str, data) {
+        var result;
+        var patt = new RegExp("%([a-zA-z0-9]+)%");
+        while ((result = patt.exec(str)) != null) {
+            var v = data[result[1]] || '';
+            str = str.replace(new RegExp(result[0], "g"), v);
+        };
+        return str;
+    };
 })(jQuery);

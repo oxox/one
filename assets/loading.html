@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OXox - jQuery.modernloading.js</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="keywords" content="xx,yy"/>
+    <meta name="description" content="xx"/>
+    <meta name="author" content="Levin"/>
+    <script src="js/libs/jquery.min.js"></script>
+    <style type="text/css">
+        html,body{
+            display: block;
+            margin:0;
+            padding: 0;
+            height:100%;
+            background: url(http://xmagicwu.github.io/metroui/img/widget_metro_gallery.png) rgb(148, 200, 73) center center no-repeat;
+        }
+        .about{position: fixed;right:0;left:0;bottom:0;text-align: center;color:#fff;}
+        .modern-loading{
+            position: relative;
+            overflow: hidden;
+            height:5px;
+        }
+        .modern-loading-dot {
+            position: absolute;
+            top:0;
+            right:100%;
+            width: 5px;
+            height: 5px;
+            background: #FFFFFF;
+            transition-property:right;
+            transition-timing-function:ease-out;
+            -webkit-transition-property:right;
+            -webkit-transition-timing-function:ease-out;
+        }
+        .modern-loading-ani {
+            right:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo" class="modern-loading"></div>
+    <div class="about">
+        <h1>jQuery.modernloading.js</h1>
+        <h3>Win8 style loading animation</h3>
+        <p>
+            <button onclick="$('#demo').modernloading('stop')">Stop</button>
+            <button onclick="$('#demo').modernloading('start')">Start</button>
+        </p>
+    </div>
+
+    <script src="js/libs/jquery.modernloading.js"></script>
+    <script>
+        $(function(){
+            $('#demo').modernloading({
+                cntDot:8
+            });
+        });
+    </script>
+</body>
+</html>
