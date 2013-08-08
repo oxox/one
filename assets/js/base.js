@@ -1,79 +1,42 @@
 //TODO:make it cool http://html5demos.com/history
+/**
+ * base utility module
+ * @module Common
+ * @class base
+ * @static
+ * @author levinhuang
+ */
 J(function($,p,pub){
+	pub.id="base";
+	var win0 = window;
 	
-	var gui = require('nw.gui'),
-		fs = require('fs-extra');
+	pub.fs = require('fs-extra');
+	pub.gui = require('nw.gui');
+    pub.userName = process.env['USERNAME'];
+    pub.localdb = win0.localStorage||{};
+    pub.session = win0.sessionStorage||{};
+    pub.appRoot = __dirname.substr(0,__dirname.lastIndexOf('\\')+1);//process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
 
-	pub.id ="base";
-	pub.userName = process.env['USERNAME'];
-	pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
-	pub.package = fs.readJsonSync('package.json');
-	pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',pub.package.name);
-	pub.initFile = pub.dataRoot+"app.ini";
-	pub.$win = $(window);
+    //package json
+    if ( !(pub.package=pub.session['package']) ) {
+        pub.package = pub.fs.readJsonSync(pub.appRoot+'package.json');
+        pub.session['package'] = JSON.stringify(pub.package);
+    }else{
+        pub.package = JSON.parse(pub.package);
+    };
 
-	
-	pub.gui = gui;
-	pub.fs =fs;
-	
+    pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',pub.package.name);
+    pub.initFile = pub.dataRoot+"app.ini";
+    pub.$win = $(win0);
 	
 	
 	//https://github.com/rogerwang/node-webkit/wiki/Show-window-after-page-is-ready
 	window.onload=function(){
 		gui.Window.get().show();
 	};
-	
-	p.V = {
-		tpl0:'Welcome',
-		$status:$("#appStatus"),
-		$tip:$("#appTip"),
-		$navCollapse:$("#navCollapse"),
-		$secA:$("#secA"),
-		updateStatus:function(txt){
-			txt = txt||this.tpl0+','+pub.userName;
-			this.$status.html(txt);
-		}
-	};
-
-	p.M={
-		tipTimer:null,
-		isBusy:false
-	};
 
 	p.C={
-		onLoad:function(){
-
-			$("#btnClose").on("click",function(e){
-
-				var win = gui.Window.get();
-				win.close();
-				return false;
-
-			});
-
-			$("#btnFullscreen").on("click",function(e){
-				var win = gui.Window.get();
-				win.toggleFullscreen();
-				
-				return false;
-			});
-
-			$("#btnMinSize").on("click",function(e){
-				var win = gui.Window.get();
-				win.minimize();
-				return false;
-			});
-
-			$("#btnNavbar").on("click",function(e){
-
-				if (p.V.$navCollapse.hasClass('in')) {
-					p.V.$secA.removeClass('sec_collapsein');
-				}else{
-					p.V.$secA.addClass('sec_collapsein');
-				};
-
-			});
-
+		_onLoad:function(){
 			//minimize to tray
 			this.initTray();
 
@@ -101,47 +64,6 @@ J(function($,p,pub){
 				});
 			});
 		}//initTray
-	};
-	/**
-	 * 重载当前窗口
-	 */
-	pub.reload = function(){
-		var win = gui.Window.get();
-		win.reload();
-	};
-	/**
-	 * 在页脚状态栏显示提示信息
-	 * @param {String} txt 提示信息
-	 * @param {int} timeout 提示显示时长
-	 */
-	pub.showTip = function(txt,timeout){
-		clearTimeout(p.M.tipTimer);
-		p.V.$tip.html(txt).show();
-		p.M.isBusy=true;
-		if (!timeout) {
-			return;
-		};
-		p.M.tipTimer = setTimeout(function(){
-
-			pub.hideTip();
-
-		},timeout);
-	};
-	pub.hideTip = function(){
-		clearTimeout(p.M.tipTimer);
-		p.V.$tip.hide();
-		p.M.isBusy = false;
-	};
-
-	pub.isBusy = function(){
-		return p.M.isBusy;
-	};
-	/**
-	 * update status bar
-	 * @param {String} txt text info
-	 */
-	pub.updateStatus = function(txt){
-		p.V.updateStatus(txt);
 	};
 	/**
 	 * 获取文件的扩展名
@@ -191,25 +113,4 @@ J(function($,p,pub){
 	    }
 	    return isImg;
 	};
-
-	/**
-	 * 移除应用的loading界面
-	 * @param {int} delay 延迟毫秒数
-	 * @param {Function} cbk callback
-	 */
-	pub.removeAppLoading = function(delay,cbk){
-		var rock = function(){
-			$('#appLoader').remove();
-			cbk&&cbk();
-			localStorage[J.data.packageJson.name+'.appLoaded']="1";
-		};
-		if (!delay) {
-			rock();
-			return;
-		};
-		setTimeout(function(){
-			rock();
-		},delay);
-	};
-
 });
