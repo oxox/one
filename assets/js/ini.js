@@ -25,5 +25,6 @@ J(function($,p,pub){
     };
 
     pub.data = J.base.fs.readJsonSync(J.base.initFile);
+    J.base.session['ini']=JSON.stringify(pub.data);
     
 });

@@ -15,7 +15,7 @@ J(function($,p,pub){
     pub.userName = process.env['USERNAME'];
     pub.localdb = win0.localStorage||{};
     pub.session = win0.sessionStorage||{};
-    pub.appRoot = __dirname.substr(0,__dirname.lastIndexOf('\\')+1);//process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
+    pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
 
     //package json
     if ( !(pub.package=pub.session['package']) ) {
@@ -28,11 +28,17 @@ J(function($,p,pub){
     pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',pub.package.name);
     pub.initFile = pub.dataRoot+"app.ini";
     pub.$win = $(win0);
+    pub.$body = $('body');
+    
+    //global event definition
+    pub.EVT = {
+        viewReady:'appOnViewReady'
+    };
 	
 	
 	//https://github.com/rogerwang/node-webkit/wiki/Show-window-after-page-is-ready
 	window.onload=function(){
-		gui.Window.get().show();
+		pub.gui.Window.get().show();
 	};
 
 	p.C={
@@ -43,7 +49,7 @@ J(function($,p,pub){
 		},
 		initTray:function(){
 			// Reference to window and tray
-			var win = gui.Window.get(),
+			var win = pub.gui.Window.get(),
 				tray;
 
 			// Get the minimize event
@@ -52,7 +58,7 @@ J(function($,p,pub){
 				this.hide();
 
 				// Show tray
-				tray = new gui.Tray({ 
+				tray = new pub.gui.Tray({ 
 					'icon': 'icon.png'
 				});
 				tray.tooltip = pub.package.name+'-v'+pub.package.version;

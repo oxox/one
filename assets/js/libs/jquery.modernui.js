@@ -52,6 +52,8 @@
             
             //preview module
             model.preview._init(this.opts);
+            //sidebar module
+            model.sidebar._init(this.$widget_sidebar,this.opts);
         },
         _animateWidgets:function(){
             //widget effect
@@ -79,7 +81,7 @@
             });
 
             this.$container.on('click'+evtNamespace,this.opts.cssWidget,function(e){
-                me.openWidget(this.getAttribute('data-id'));
+                me.openWidget(this.id);
                 return false;
             });
         },
@@ -87,8 +89,8 @@
             this.window_width = $win.width();
             this.window_height = $win.height();
         },
-        closeWidget:function(id){
-            model.preview.close(id);
+        closeWidget:function(){
+            model.preview.close();
         },
         destroyWidget:function(id){
             model.preview.destroy(id);
@@ -108,31 +110,59 @@
     //preview模块
     model.preview = {
         suffix:'-detail',
+        clLoading:'preview_loading',
+        clLoaded:'preview_loaded',
+        clHideHeader:'hide_hd',
         activeId:null,
         zIndex:1,
         cache:{},
+        timer:null,
         _init:function(opts){
+            var me = this;
             this.opts = opts;
             this.$dom = $(this.opts.cssWidgetPreview);
             this.$detailBox = $(this.opts.cssWidgetDetailBox);
             this.$loading = $(this.opts.cssWidgetLoading).modernloading({autoStart:false});
+            this.$widget = null;
+            this.$detailBox.on('mouseenter','.widget_detail_hd',function(e){
+                if(me.opts.autoHideHeader){
+                    me.showHeader();
+                }
+            }).on('mouseleave','.widget_detail_hd',function(e){
+                if(me.opts.autoHideHeader){
+                    me.hideHeader();
+                }
+            });
         },
         showLoading:function(css){
             this.$loading.modernloading('start');
-            this.$dom.addClass('open')
+            this.$dom.addClass('open '+this.clLoading)
                 .css(css);
         },
         hideLoading:function(){
             this.$loading.modernloading('stop');
             this.$dom
+                .removeClass(this.clLoading)
                 .css({
                     'background-image':'none'
                 });
         },
+        hideHeader:function(){
+            clearTimeout(this.timer);
+            var me = this;
+            this.timer = setTimeout(function(){
+                me.$widget.addClass(me.clHideHeader);
+            },this.opts.autoHideHeaderDelay);
+        },
+        showHeader:function(){
+            clearTimeout(this.timer);
+            this.$widget.removeClass(this.clHideHeader);
+        },
         show:function(id){
-            var $widget = $('#widget_'+id),
+            var $widget = $('#'+id),
                 data = $widget.data();
             data.title = this.opts.title_prefix+data.name;
+            data.id=id;
             if (data.target&&data.target==='_blank') {
                 if(this.opts.onShowExternal){
                     return this.opts.onShowExternal.call(this,data);
@@ -146,7 +176,7 @@
             
             var css = {
                 'background-color':$widget.css("background-color"),
-                'background-image':$widget.css("background-image")
+                'background-image':$widget.find('.main').css("background-image")
             };
             
             this.showLoading(css);
@@ -166,21 +196,35 @@
         },
         active:function(widgetId){
             this.activeId = widgetId;
-            $('#'+this.getId(widgetId)).addClass('open');
+            this.$widget = $('#'+this.getId(widgetId)).addClass('open');
+            this.$dom.addClass(this.clLoaded);
             this.hideLoading();
+            if(this.opts.autoHideHeader){
+                this.hideHeader();
+            }
         },
-        close:function(widgetId){
-            $('#'+this.getId(widgetId)).removeClass('open');
+        close:function(){
+            this.$widget.removeClass('open '+this.clHideHeader);
+            this.$dom.removeClass('open '+this.clLoaded);
+            clearTimeout(this.timer);
+            this.activeId = null;
         },
         destroy:function(widgetId){
             var id = this.getId(widgetId);
             $('#'+id).remove();
+            this.cache[widgetId]=null;
         },
         getId:function(widgetId){
             return (widgetId+this.suffix);
         },
         exists:function(widgetId){
             return ($('#'+this.getId(widgetId)).length>0);
+        },
+        refresh:function(){
+            var id = this.activeId;
+            this.close();
+            this.destroy(id);
+            this.show(id);
         },
         _loadWidget:function(widgetData,cbk){
             if(this.exists(widgetData.id)){
@@ -213,6 +257,33 @@
         }
     };
 
+    //sidebar模块
+    model.sidebar = {
+        _init:function($dom,opts){
+            this.$dom = $dom;
+            this.opts=opts;
+            this.$dom.on('click','.widget_sidebar_action',function(e){
+                model.sidebar.action(this.getAttribute('data-action'));
+            });
+        },
+        action:function(act){
+            switch(act){
+                case 'close':
+                    model.preview.close();
+                break;
+                case 'refresh':
+                    model.preview.refresh();
+                break;
+                case 'back':
+                    alert('Not implemented!');
+                break;
+                case 'next':
+                    alert('Not implemented!');
+                break;
+            }//switch
+        }
+    };
+
     //history模块
     model.history={
         set: function (stateObj,pushState,baseUrl) {
@@ -220,7 +291,8 @@
             baseUrl = baseUrl||'';
             //更新state
             var m = pushState === true ? "pushState" : "replaceState";
-            history[m](stateObj, stateObj.title||document.title, baseUrl+"#"+stateObj.url);
+            baseUrl = baseUrl.indexOf(stateObj.id)>0?baseUrl:(baseUrl+"#"+stateObj.id);
+            history[m](stateObj, stateObj.title||document.title, baseUrl);
         },//set
         get: function () {
             return this.value;
@@ -277,10 +349,12 @@
         cssWidgetSidebar:'#widget_sidebar',
         cssWidgetLoading:'#widget_loading',
         previewInIframe:true,
+        autoHideHeader:true,
+        autoHideHeaderDelay:2000,
         baseUrl:location.href,
         title_prefix:'One - ',
         tplWidgetDetail1:'<div id="%id%-detail" class="widget_detail">%html%</div>',
-        tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><iframe id="if_%id%-detail" src="%url%" frameborder="0"></iframe></div>'
+        tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><div class="widget_detail_hd"><h1 class="widget_name">%name%</h1></div><div class="widget_detail_bd"><iframe id="if_%id%-detail" src="%url%" frameborder="0"></iframe></div></div>'
     };
     /**
      * simple template utility method

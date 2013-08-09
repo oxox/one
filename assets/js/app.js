@@ -1,28 +1,30 @@
-global.$=jQuery;
-
-$(function(){
-    // Load native UI library.
-    var gui = require('nw.gui');
-
-
+J(function($,p,pub){
+    pub.id='app';
+    
     var init = function(){
         $('#widget_scroll_container').modernui({
             onShowExternal:function(widgetData){
                 // Open URL with default browser.
-                gui.Shell.openExternal(widgetData.url);
+                J.base.gui.Shell.openExternal(widgetData.url);
             }
         });
     };
-
-	var vm = require('one.viewmanager');
-	vm.ready(function(err){
-		if (err) {
-			alert(err.toString());
-			return;
-		};
-        init();
-	});
-	
+    pub._init = function(){
+        
+        J.base.$win.on(J.base.EVT.viewReady,function(e){
+            init();
+        });
+        
+        J.view.ready(function(err){
+            if (err) {
+                alert(err.toString());
+                return;
+            };
+            //触发appOnViewReady事件
+            J.base.$win.trigger(J.base.EVT.viewReady);
+        });
+    };
+    
+    
 });
-
 J.init();

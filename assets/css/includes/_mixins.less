@@ -12,18 +12,15 @@
   width:@w;
   height:@h;
 }
-.boxSizing(@sizing:border-box){
+.box-sizing(@sizing:border-box){
   -webkit-box-sizing: @sizing; /* Safari/Chrome, other WebKit */
-     -moz-box-sizing: @sizing;    /* Firefox, other Gecko */
           box-sizing: @sizing;         /* Opera/IE 8+ */
 }
 .displayBox(){
-  display:-moz-box; /* Firefox */
   display:-webkit-box; /* Safari and Chrome */
   display:box;    
 }
 .boxFlex(@percent){
-  -moz-box-flex:@percent; /* Firefox */
  -webkit-box-flex:@percent; /* Safari and Chrome */
          box-flex:@percent;
 }
@@ -31,40 +28,32 @@
   opacity: @opacity / 100;
   filter: ~"alpha(opacity=@{opacity})";
 }
-.borderRadius(@borderRadius:2px){
+.border-radius(@borderRadius:2px){
 
   -webkit-border-radius: @borderRadius;
-  -moz-border-radius: @borderRadius;
   border-radius: @borderRadius;
 
 }
 // Single Corner Border Radius
 .border-top-left-radius(@radius) {
   -webkit-border-top-left-radius: @radius;
-      -moz-border-radius-topleft: @radius;
           border-top-left-radius: @radius;
 }
 .border-top-right-radius(@radius) {
   -webkit-border-top-right-radius: @radius;
-      -moz-border-radius-topright: @radius;
           border-top-right-radius: @radius;
 }
 .border-bottom-right-radius(@radius) {
   -webkit-border-bottom-right-radius: @radius;
-      -moz-border-radius-bottomright: @radius;
           border-bottom-right-radius: @radius;
 }
 .border-bottom-left-radius(@radius) {
   -webkit-border-bottom-left-radius: @radius;
-      -moz-border-radius-bottomleft: @radius;
           border-bottom-left-radius: @radius;
 }
 // Drop shadows
 .box-shadow(@shadow) {
   -webkit-box-shadow: @shadow;
-     -moz-box-shadow: @shadow;
-       -o-box-shadow: @shadow;
-      -ms-box-shadow: @shadow;
           box-shadow: @shadow;
 }
 .text-overflow-hidden(){
@@ -76,67 +65,49 @@
 // Transitions
 .transition(@transition:all .4s linear) {
   -webkit-transition: @transition;
-     -moz-transition: @transition;
-      -ms-transition: @transition;
-       -o-transition: @transition;
           transition: @transition;
 }
 
 // Transformations
 .rotate(@degrees) {
   -webkit-transform: rotate(@degrees);
-     -moz-transform: rotate(@degrees);
-      -ms-transform: rotate(@degrees);
-       -o-transform: rotate(@degrees);
           transform: rotate(@degrees);
 }
-.animation(@key,@t,@e,@loop,@dir){
-  -webkit-animation: @key @t @e @loop @dir;
-  -moz-animation: @key @t @e @loop @dir;
-  -ms-animation: @key @t @e @loop @dir;
-  -o-animation: @key @t @e @loop @dir;
-  animation: @key @t @e @loop @dir;
-}
-.animation1(@ani){
+.animation(@ani){
   -webkit-animation: @ani;
-     -moz-animation: @ani;
-      -ms-animation: @ani;
-       -o-animation: @ani;
-          animation: @ani;
+  animation: @ani;
 }
 .scale(@ratio) {
   -webkit-transform: scale(@ratio);
-     -moz-transform: scale(@ratio);
-      -ms-transform: scale(@ratio);
-       -o-transform: scale(@ratio);
           transform: scale(@ratio);
 }
 .translate(@x, @y) {
   -webkit-transform: translate(@x, @y);
-     -moz-transform: translate(@x, @y);
-      -ms-transform: translate(@x, @y);
-       -o-transform: translate(@x, @y);
           transform: translate(@x, @y);
 }
 .skew(@x, @y) {
   -webkit-transform: skew(@x, @y);
-     -moz-transform: skew(@x, @y);
-      -ms-transform: skew(@x, @y);
-       -o-transform: skew(@x, @y);
           transform: skew(@x, @y);
 }
 .translate3d(@x, @y, @z) {
   -webkit-transform: translate(@x, @y, @z);
-     -moz-transform: translate(@x, @y, @z);
-      -ms-transform: translate(@x, @y, @z);
-       -o-transform: translate(@x, @y, @z);
           transform: translate(@x, @y, @z);
 }
 .transform-origin(@origin){
-            transform-origin:@origin;
-        -ms-transform-origin:@origin; /* IE 9 */
     -webkit-transform-origin:@origin; /* Safari and Chrome */
-       -moz-transform-origin:@origin; /* Safari and Chrome */
+            transform-origin:@origin;
+}
+.overflow-scrolling(@scroll:touch){
+    -webkit-overflow-scrolling: @scroll;
+            overflow-scrolling: @scroll;
+}
+.box-shadow(@s){
+    -webkit-box-shadow: @s;
+        box-shadow: @s;
+}
+.text-shadow(@s){
+    -webkit-text-shadow:@s;
+    text-shadow:@s;
 }
 // Gradients
 #gradient {
