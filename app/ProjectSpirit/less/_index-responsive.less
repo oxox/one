@@ -1,0 +1,110 @@
+@import "_vars.less";
+//Responsive
+//=============================
+// ONE COLUMNS
+@media only screen and (min-width:767px){
+	// styles for browsers larger than 768px;
+	@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*2 - @iconFileMaxWidth - @iconFileGapWidth);
+	.file_name{
+		max-width: ~'@{maxWidth}px';
+	}
+	.project_hasext{
+		@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth*2 - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*2 - @iconFileMaxWidth - @iconFileGapWidth);
+		.file_name{
+			max-width: ~'@{maxWidth}px';
+		}
+	}
+}
+@media only screen and (min-width:895px){
+	// styles for browsers larger than 895px;
+	@minWinWidth:   896;
+	@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*2 - @iconFileMaxWidth - @iconFileGapWidth);
+	.file_name{
+		max-width: ~'@{maxWidth}px';
+	}
+	.project_hasext{
+		@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth*2 - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*2 - @iconFileMaxWidth - @iconFileGapWidth);
+		.file_name{
+			max-width: ~'@{maxWidth}px';
+		}
+	}
+}
+//TWO COLUMNS
+@media only screen and (min-width:1023px){
+	// styles for browsers larger than 1023px; 
+	@minWinWidth:     1024;
+	@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*4 - @iconFileMaxWidth - @iconFileGapWidth)/2;
+	.list_file{
+		li{
+			width:50% !important;
+		}
+	}
+	.file_name{
+		max-width: ~'@{maxWidth}px';
+	}
+	.project_hasext{
+		@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth*2 - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*4 - @iconFileMaxWidth - @iconFileGapWidth)/2;
+		.file_name{
+			max-width: ~'@{maxWidth}px';
+		}
+	}
+}
+//THREE COLUMNS
+@media only screen and (min-width:1311px){
+	// styles for browsers larger than 1311px; 
+	@minWinWidth:     1312;
+	@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*6 - @iconFileMaxWidth - @iconFileGapWidth)/3;
+	.list_file{
+		li{
+			width:33.33333333% !important;
+		}
+	}
+	.file_name{
+		max-width: ~'@{maxWidth}px';
+	}
+	.project_hasext{
+		@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth*2 - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*6 - @iconFileMaxWidth - @iconFileGapWidth)/3;
+		.file_name{
+			max-width: ~'@{maxWidth}px';
+		}
+	}
+}
+//FOUR COLUMNS
+@media only screen and (min-width:1599px){
+	// styles for browsers larger than 1599px; 
+	@minWinWidth:     1600;
+	@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*8 - @iconFileMaxWidth - @iconFileGapWidth)/4;
+	.list_file{
+		li{
+			width:25% !important;
+		}
+	}
+	.file_name{
+		max-width: ~'@{maxWidth}px';
+	}
+	.project_hasext{
+		@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth*2 - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*8 - @iconFileMaxWidth - @iconFileGapWidth)/4;
+		.file_name{
+			max-width: ~'@{maxWidth}px';
+		}
+	}
+}
+@media only screen and (min-width:1749px){
+	// styles for browsers larger than 1599px; 
+	@minWinWidth:     1750;
+	@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*8 - @iconFileMaxWidth - @iconFileGapWidth)/4;
+	.list_file{
+		li{
+			width:25% !important;
+		}
+	}
+	.file_name{
+		max-width: ~'@{maxWidth}px';
+	}
+	.project_hasext{
+		@maxWidth:      (@minWinWidth - @appMainGapWidth*2 - @sidebarWidth*2 - @scrollbarWidth - @tabPanelGapWidth*2 - @itemFilePadding*8 - @iconFileMaxWidth - @iconFileGapWidth)/4;
+		.file_name{
+			max-width: ~'@{maxWidth}px';
+		}
+	}
+}

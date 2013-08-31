@@ -1,0 +1,354 @@
+@import "_vars.less";
+@import "_mixins.less";
+@import "_jquery.fanmenu.less";
+@import "_loader.less";
+@import "_icon_filetype.less";
+@import "_index-responsive.less";
+
+body{
+	&.dragover{
+		background-color: yellow;
+	}
+}
+.fm_wrap{
+	.size(145px,130px);
+	bottom:32px;
+	.fm_list{
+		bottom:35px;
+	}
+}
+
+.fbox_sidebar{
+	>.nav_project{
+		.boxSizing(border-box);
+		margin-right: 0;
+		margin-bottom:0;
+		.size(100%,100%);
+	}
+}
+
+.project_main{
+	-webkit-user-select: auto;
+	.project_panes{
+		height:100%;
+	}
+	.tab-pane{
+		padding:5px ~'@{tabPanelGapWidth}px' 10px;
+	}
+}
+.project_ext{
+	display: none;
+	position: relative;
+	.ext_box{
+		z-index: 1;
+		border-left:1px solid #e0e0e0;
+		.box-shadow(-3px 0px 5px rgba(0, 0, 0, 0.75));
+	}
+	.close{
+		position: absolute;
+		top:2px;
+		right:2px;
+		z-index: 2;
+		font-size: 1.5em;
+	}
+}
+
+.project_hasext{
+	.project_ext{
+		display: block !important;
+	}
+}
+
+.nav_project{
+	.navitem_projActs{
+		display: none;
+		position: absolute;
+		top:2px;
+		right:2px;
+	}
+	.proj_loader{
+		position: absolute;
+		top:0;
+		left:0;
+		bottom:0;
+		right: 0;
+		.ploader_bg{
+			position: absolute;
+			top:0;
+			left:0;
+			bottom:0;
+			background: #000;//@textEMColor;
+			opacity: 0.5;
+			width:0px;
+			overflow: hidden;
+		}
+		.ploader_bd{
+			position: absolute;
+			top:2px;
+			right:2px;
+			font-size: 0.8em;
+			color: @textEMColor;
+		}
+	}
+	li{
+		position: relative;
+		&:hover{
+			.navitem_projActs{
+				display: block;
+			}
+		}
+	}
+}
+.list_file{
+	margin-left: 0px;
+	margin-bottom: 0px;
+	li{
+		float:left;
+		display: inline;
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		//.transition(all .2s ease-out);
+		&:hover{
+			z-index: 2;
+			a{
+				color:@textEMColor;
+			}
+			.com_bg{
+				background-color: #eee;
+			}
+		}
+		&.active,&.active:hover{
+			.com_bg{
+				background-color: darken(#eee,10%);
+			}
+		}
+		&.file_changing{
+			.item_file{
+				color:red;
+			}
+		}
+	}
+	a{
+		color:#333;
+	}
+	.file_meta{
+		color:#999;
+		font-size: 0.9em;
+	}
+	.file_icon,.file_name{
+		.text-overflow-hidden();
+	}
+	.file_icon{
+		.icon_file{
+			min-width: ~'@{iconFileMinWidth}px';
+			max-width: ~'@{iconFileMaxWidth}px';
+		}
+		margin-right: ~'@{iconFileGapWidth}px';
+	}
+	.item_file{
+		position: relative;
+		text-align: left;
+		margin-bottom: 2px;
+		padding:~'@{itemFilePadding}px';
+	}
+	.com_bg{
+		position: absolute;
+		z-index: 1;
+		top:0;
+		left:0;
+		right:0;
+		bottom: 0;
+		background-color: #fff;
+		opacity: 0.95;
+	}
+	.com_bd{
+		position: relative;
+		z-index: 2;
+	}
+	.file_bd{
+		.transition(all .2s ease-out);
+		height:20px;
+		line-height: 20px;
+		.text-overflow-hidden();
+	}
+	.item_img{
+		.file_bd{
+			opacity: 0;
+		}
+		&:hover{
+			.file_bd{
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.project_dir{
+	h3{
+		font-weight: normal;
+		margin-bottom: 5px;
+		margin-top: 10px;
+	}
+	.pdir_hd{
+		display: none;
+	}
+	.pdir_flag{
+		text-transform: uppercase;
+	}
+	.pdir_cntfile{
+		padding-left:3px;
+		color:@textEMColorInverse;
+	}
+}
+.mod_status .tip_project{
+	left: 200px;
+}
+
+//ftp_upload
+//===============
+.ftp_upload{
+	.panel_bdA{
+		overflow: hidden;
+	}
+	.ftpupd_sec{
+		position: absolute;
+		left:10px;
+		right:0;
+	}
+	.ftpupd_hd{
+		top:0;
+		height:48px;
+		overflow: hidden;
+	}
+	.ftpupd_bd{
+		position: absolute;
+		background: url(../img/cloud_upload.png) center center no-repeat;
+		top:58px;
+		bottom:0;
+		left:0;
+		right:0;
+		overflow: auto;
+	}
+
+	&.dragover{
+		background-color: #ffffc2;
+	}
+	.fileutil_act{
+		label{
+			float:left;
+			margin-bottom: 0px;
+			margin-right: 6px;
+			font-size: 12px;
+		}
+	}
+}
+.flist_upload{
+	position: relative;
+	z-index: 1;
+	.file_ok{
+		color:green;
+	}
+	.file_err{
+		color:red;
+	}
+}
+.ftpupd_progress{
+	display: none;
+	position: absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	height:20px;
+	.borderRadius(3px);
+	background: #eee;
+	.progress_bd{
+		position: relative;
+		z-index: 2;
+		text-align: center;
+	}
+	.progress_bg{
+		position: absolute;
+		z-index: 1;
+		top:0;
+		left:0;
+		height: 20px;
+		width:0px;
+		overflow: hidden;
+		background: #02acdd;
+		.transition();
+	}
+}
+.ftpupd_loading,.ftpupd_loading_bg{
+	position: absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+}
+.ftpupd_loading_bg{
+	background-color: rgba(0,0,0,0.5);
+}
+.ftpupd_loading_bd{
+	.size(100%,22px);
+	color:@textEMColorInverse;
+	position: absolute;
+	top:50%;
+	margin-top: -11px;
+	text-align:center;
+	&.error{
+		color:red;
+	}
+}
+//文件明细模块
+//============================
+.file_detail{
+	overflow: hidden;
+	.eb_sec_ani{
+		opacity: 0;
+	}
+	.eb_sec{
+		text-align: right;
+		.transition(all .4s ease-in-out);
+	}
+	.eb_sec1{
+		text-align: left;
+	}
+	.eb_sec2{
+		text-align: center;
+	}
+	.eb_sec_playani{
+		opacity: 1;
+	}
+	.file_name{
+		font-size: 16px;
+		font-weight: bold;
+		.eb_sec,.eb_sec_bd{
+			background-color:@bgEMColor2;
+		}
+	}
+	.file_metas{
+		font-size: 11px;
+	}
+	.file_acts{
+		padding-top:10px;
+		.eb_sec_bd{
+			background-color: @textEMColor;
+		}
+	}
+	.file_thumb{
+		margin-top: 10px;
+		.thumb_img{
+			display: inline-block;
+			.size(150px,150px);
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			border:2px solid @boxBDColor;
+			border-right:0;
+		}
+	}
+}
+
+//邮件提单
+.tbx_pubfiletxt{width:90%;}

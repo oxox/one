@@ -1,0 +1,29 @@
+{
+  "name": "ProjSpirit",
+  "main": "default.html",
+  "version": "1.0.1",
+  "keywords":["ProjSpirit","node-webkit"],
+  "description": "A project management Node-Webkit application for front-end developers.",
+  "window": {
+	"show":false,
+    "toolbar": false,
+    "frame": false,
+    "position": "center",
+    "width": 1024,
+    "height": 640,
+    "min_width": 768,
+    "min_height": 480,
+    "icon": "icon.png"
+  },
+  "homepage": "https://oxox.io/projspirit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oxox/projspirit.git"
+  },
+  "dependencies": {
+    "fs-extra": "~0.6.1",
+    "jsftp":"~0.6.0",
+    "cssutil":"~0.5.1",
+    "uglify-js":"~2.3.6"
+  }
+}

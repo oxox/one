@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>ProjSpirit! - Workspaces</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="A project management Node-Webkit application for front-end developers."/>
+		<meta name="author" content="levinhuang"/>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet"/>
+		<link href="css/style.css" rel="stylesheet"/>
+	</head>
+
+	<body>
+		<div class="site_bg"></div>
+		<div class="navbar navbar-inverse navbar-indiebg navbar-abs-top">
+			<div class="navbar-inner">
+				<div class="navbar-innerbg"></div>
+				<div class="container-fluid">
+					<a id="btnNavbar" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="about.html">
+						<span class="mod_logo"></span>
+					</a>
+					<div class="pull-right win_acts">
+						<a id="btnMinSize" href="#" class="mod_btnapp mod_btnappmin" title="close"><i class="icon-resize-small icon-white"></i></a>
+						<a id="btnFullscreen" href="#" class="mod_btnapp mod_btnappfull" title="close"><i class="icon-fullscreen icon-white"></i></a>
+						<a id="btnClose" href="#" class="mod_btnapp mod_btnappclose" title="close"><i class="icon-off icon-white"></i></a>
+					</div>
+					<div id="navCollapse" class="nav-collapse">
+						<ul id="J_topnav" class="nav">
+							<li><a id="hero_unit_home_lnk" href="default.html">我的项目</a></li>
+							<li class="active"><a href="workspace.html">工作台</a></li>
+							<li><a href="setting.html">设置</a></li>
+							<li><a href="about.html">关于</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+
+		<div id="secA" class="container-fluid sec_A">
+			<div class="row-fluid row_A">
+				<div class="mod_panel">
+					<div class="panel_hd">
+						<div class="panel_hdin">
+							<div class="pull-right cfg_acts">
+								<button id="btnNew" class="btn btn_new" title="New">New</button>
+							</div>
+							<h1>Workspaces</h1>
+						</div>
+						<div class="panel_bg2"></div>
+					</div>
+					<div class="panel_bd">
+						<div class="panel_bdin">
+							<table id="wsList" class="table table-bordered table-hover ws_list">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>RootPath</th>
+										<th>RemotePath</th>
+										<th>FtpIP</th>
+										<th>FtpPort</th>
+										<th>FtpUser</th>
+										<th>FtpPwd</th>
+										<th>CreatedAt</th>
+										<th>ModifiedAt</th>
+									</tr>
+									<tbody id="wsListBd"></tbody>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div><!--/row-->
+
+		</div><!--/.fluid-container-->
+
+		<div class="mod_status">
+			<div id="appStatus" class="alert"></div>
+			<div id="appTip" class="alert alert-tip" style="display:none;"></div>
+		</div>
+
+		<footer>
+			<p>&copy; ECD 2012~<script type="text/javascript">document.write((new Date()).getFullYear());</script></p>
+		</footer>
+
+		<!--Alert-->
+		<div id="appAlert" class="modal hide fade mod_alert" tabindex="-1" role="dialog" aria-labelledby="alertTitle" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+				<h3 id="alertTitle">Notice</h3>
+			</div>
+			<div class="modal-body" id="appAlertBody">
+			</div>
+		</div>
+		<!--/Alert-->
+
+		<!--Editor-->
+		<div id="workspaceEditor" class="modal modal-fixed fade mod_editor hide" tabindex="-1" role="dialog" aria-labelledby="editorTitle" aria-hidden="true">
+			<div class="modal-header">
+				<div class="modal-headerin">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+					<h3 id="editorTitle">Edit Workspace</h3>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div id="editorBody" class="modal-bodyin">
+					<div class="form-horizontal form_1">
+						<div id="cg_name" class="control-group">
+							<label class="control-label" for="ipt_name">Name</label>
+							<div class="controls">
+								<input type="hidden" id="ipt_id" class="field_item field_id" name="id"/>
+								<input type="text" id="ipt_name" class="input-block-level field_item field_name" name="name" placeholder="工作空间名称,支持字母，数字，中文"/>
+							</div>
+						</div>
+						<div id="cg_rootPath" class="control-group cg_rootPath">
+							<label class="control-label" for="ipt_rootPath">RootPath</label>
+							<div class="controls">
+								<label for="ipt_rootPath1">
+									<input id="ipt_rootPath1" type="file" class="field_rootPath" nwdirectory="true" data-target="ipt_rootPath" name="rootPath" style="display:none"/>
+									<input id="ipt_rootPath" readonly="readonly" type="text" class="field_item field_rootPath" name="rootPath"/>
+									<i class="icon-folder-open"></i>
+								</label>
+							</div>
+						</div>
+						<div id="cg_remotePath" class="control-group cg_remotePath">
+							<label class="control-label" for="ipt_remotePath">RomotePath</label>
+							<div class="controls">
+								<input id="ipt_remotePath" type="text" name="remotePath" class="input-block-level field_item field_remotePath" placeholder="工作空间对应的远程路径,如static/icson/"/>
+							</div>
+						</div>
+						<div id="cg_ftpId" class="control-group cg_ftpId">
+							<label class="control-label" for="ipt_ftpId">Ftp ID</label>
+							<div class="controls">
+								<input id="ipt_ftpId" type="text" name="ftpId" class="input-block-level field_item field_ftpId" placeholder="工作空间对应的ftp服务器"/>
+							</div>
+						</div>
+						<div id="cg_ftpPort" class="control-group cg_ftpPort">
+							<label class="control-label" for="ipt_ftpPort">Ftp Port</label>
+							<div class="controls">
+								<input id="ipt_ftpPort" type="text" name="ftpPort" class="input-block-level field_item field_ftpPort" placeholder="工作空间对应的ftp服务器端口"/>
+							</div>
+						</div>
+						<div id="cg_ftpUser" class="control-group cg_ftpUser">
+							<label class="control-label" for="ipt_ftpUser">Ftp User</label>
+							<div class="controls">
+								<input id="ipt_ftpUser" type="text" name="ftpUser" class="input-block-level field_item field_ftpUser" placeholder="ftp服务器的用户帐号"/>
+							</div>
+						</div>
+						<div id="cg_ftpPwd" class="control-group cg_ftpPwd">
+							<label class="control-label" for="ipt_ftpPwd">Ftp Password</label>
+							<div class="controls">
+								<input id="ipt_ftpPwd" type="text" name="ftpPwd" class="input-block-level field_item field_ftpPwd" placeholder="ftp服务器的用户密码"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="modal-footerin">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button id="btnDelete" style="display:none" class="btn">Delete</button>
+					<button id="btnSave" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+		<!--/Editor-->
+
+		<!--Templates-->
+		<script type="text/x-jquery-tpl" id="tplWSItem">
+		<tr id="wsitem%id%" class="tr_wsitem" data-id="%id%">
+			<td>%name%</td>
+			<td>%rootPath%</td>
+			<td>%remotePath%</td>
+			<td>%ftpId%</td>
+			<td>%ftpPort%</td>
+			<td>%ftpUser%</td>
+			<td>%ftpPwd%</td>
+			<td>%createdAt%</td>
+			<td>%modifiedAt%</td>
+		</tr>
+		</script>
+		<!--/Templates-->
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/lib/date.js"></script>
+		<script src="js/lib/j.core.js"></script>
+		<script src="js/lib/j.evalTpl.js"></script>
+		<script src="js/lib/j.endsWidth.js"></script>
+		<script src="js/data.js"></script>
+		<script src="js/base.js"></script>
+		<script src="js/alert.js"></script>
+		<script src="js/data.Setting.js"></script>
+		<script src="js/data.Workspace.js"></script>
+		<script src="js/editor.workspace.js"></script>
+		<script src="js/workspace.js"></script>
+		<script type="text/javascript">
+			J.init({});
+		</script>
+
+	</body>
+</html>

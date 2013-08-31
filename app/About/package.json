@@ -1,0 +1,13 @@
+{
+  "name": "About",
+  "main": "http://oxox.io/about/",
+  "version": "0.0.1",
+  "keywords":["oxox.io"],
+  "description": "OX Team official website",
+  "homepage": "https://oxox.io/one",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oxox/one.git"
+  },
+  "private": true
+}
