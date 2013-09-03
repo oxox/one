@@ -1,0 +1,17 @@
+.ico_minimize{
+    display: inline-block;
+    position: relative;
+    .size(36px,36px);
+    border:2px solid #fff;
+    .border-radius(50%);
+    &:after{
+        content:'';
+        .size(24px,3px);
+        background-color: #fff;
+        position: absolute;
+        left:50%;
+        top:50%;
+        margin-left: -12px;
+        margin-top: -1.5px;
+    }
+}
