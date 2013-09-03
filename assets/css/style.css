@@ -836,6 +836,40 @@ body.touch div.widget:hover {
   margin-left: -12px;
   margin-top: -1.5px;
 }
+.wthumblist {
+  position: fixed;
+  bottom: 0;
+  height: 55px;
+  left: 60px;
+  right: 60px;
+}
+.wthumb {
+  position: relative;
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: 2px solid #dfdfdf;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.wthumb .close {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  color: #000;
+  background-color: #fff;
+  font: bold 24px/16px Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+.wthumb:hover .close {
+  display: block;
+}
 /*
 Pages
 */
