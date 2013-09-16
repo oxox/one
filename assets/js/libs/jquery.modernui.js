@@ -299,6 +299,13 @@
         }
     };
 
+    //switchlist bar
+    model.switchlist = {
+        _init:function(){
+
+        }
+    };
+
     /**
      * This jQuery plugin displays pagination links inside the selected elements.
      * @module jQuery.fn.modernui
@@ -354,7 +361,8 @@
         baseUrl:location.href,
         title_prefix:'One - ',
         tplWidgetDetail1:'<div id="%id%-detail" class="widget_detail">%html%</div>',
-        tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><div class="widget_detail_hd"><h1 class="widget_name">%name%</h1></div><div class="widget_detail_bd"><iframe id="if_%id%-detail" src="%url%" frameborder="0"></iframe></div></div>'
+        tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><div class="widget_detail_hd"><h1 class="widget_name">%name%</h1></div><div class="widget_detail_bd"><iframe id="if_%id%-detail" src="%url%" frameborder="0"></iframe></div></div>',
+        tplWidgetThumb:'<div class="wthumb" style="background-image:url(../app/About/icon.png);"><a href="javascript:;" class="close">&times;</a></div>'
     };
     /**
      * simple template utility method

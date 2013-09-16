@@ -706,6 +706,9 @@ body.touch div.widget:hover {
 .color_default {
   background: url('../img/colour.png');
 }
+.theme-default {
+  background-color: #be213e;
+}
 .color_blue,
 .theme-blue .themepicker {
   background-color: #0097aa;
@@ -838,14 +841,41 @@ body.touch div.widget:hover {
 }
 .wthumblist {
   position: fixed;
+  top: 0;
   bottom: 0;
-  height: 55px;
-  left: 60px;
-  right: 60px;
+  left: -65px;
+  transition: all 0.25s ease-out;
+}
+.wthumblist:hover {
+  left: 0;
+}
+.wthumblist_bd {
+  height: 100%;
+  margin-right: 5px;
 }
 .wthumb {
   position: relative;
-  margin-right: 10px;
+  padding: 10px 5px;
+}
+.wthumb .close {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  top: 6px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  color: #333;
+  background-color: #fff;
+  font: bold 24px/16px Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+.wthumb:hover .close {
+  display: block;
+}
+.wthumb_bd {
+  position: relative;
+  z-index: 1;
   width: 50px;
   height: 50px;
   -webkit-border-radius: 50%;
@@ -855,20 +885,38 @@ body.touch div.widget:hover {
   background-position: center center;
   background-size: cover;
 }
-.wthumb .close {
-  display: none;
-  position: absolute;
-  bottom: 0;
-  right: -6px;
-  width: 16px;
-  height: 16px;
-  color: #000;
-  background-color: #fff;
-  font: bold 24px/16px Helvetica, Arial, sans-serif;
-  text-align: center;
+.theme-default .wthumblist_bd {
+  background-color: #be213e;
 }
-.wthumb:hover .close {
-  display: block;
+.theme-blue .wthumblist_bd {
+  background-color: #0097aa;
+}
+.theme-orange .wthumblist_bd {
+  background-color: #f29500;
+}
+.theme-red .wthumblist_bd {
+  background-color: #c23916;
+}
+.theme-green .wthumblist_bd {
+  background-color: #94c849;
+}
+.theme-darkgreen .wthumblist_bd {
+  background-color: #6fa014;
+}
+.theme-purple .wthumblist_bd {
+  background-color: #91009b;
+}
+.theme-darkred .wthumblist_bd {
+  background-color: #be213e;
+}
+.theme-darkblue .wthumblist_bd {
+  background-color: #3c7780;
+}
+.theme-yellow .wthumblist_bd {
+  background-color: #d9b700;
+}
+.theme-grey .wthumblist_bd {
+  background-color: #4c4c4c;
 }
 /*
 Pages

@@ -13,8 +13,8 @@
  
     $.fn.removeClassByPrefix = function (prefix) {
         this.each( function ( i, it ) {
-            var classes = it.className.split(" ").map(function (item) {
-               return item.indexOf(prefix) === 0 ? "" : item;
+            var classes = $.map(it.className.split(" "),function (item) {
+               return (item===''||item.indexOf(prefix) === 0) ? null : item;
             });
             it.className = classes.join(" ");
         });

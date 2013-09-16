@@ -1,0 +1,12 @@
+{
+  "name": "QRCode",
+  "main": "index.html",
+  "version": "0.0.1",
+  "keywords":["QRCode","qrcodejs"],
+  "description": "Online QRCode Tool",
+  "homepage": "https://github.com/davidshimjs/qrcodejs",
+  "window": {
+    "icon":"icon.png"
+  },
+  "private": true
+}

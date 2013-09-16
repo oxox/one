@@ -1,0 +1,12 @@
+{
+  "name": "ClosureCompiler",
+  "main": "http://closure-compiler.appspot.com/home",
+  "version": "0.0.1",
+  "keywords":["Closure Compiler","js","javascript","compression"],
+  "description": "Online Javascript Compression Tool",
+  "homepage": "http://closure-compiler.appspot.com/home",
+  "window": {
+    "icon":"http://closure-compiler.appspot.com/images/header.png"
+  },
+  "private": true
+}

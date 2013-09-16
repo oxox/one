@@ -1,26 +1,25 @@
 .wthumblist{
     position: fixed;
+    top:0;
     bottom:0;
-    height:55px;
-    left:60px;
-    right:60px;
+    left:-65px;
+    transition:all .25s ease-out;
+    &:hover{
+        left:0;
+    }
 }
+.wthumblist_bd{height:100%;margin-right: 5px;}
 .wthumb{
     position: relative;
-    margin-right: 10px;
-    .size(50px,50px);
-    .border-radius(50%);
-    border:2px solid #dfdfdf;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    padding: 10px 5px;
     .close{
         display: none;
         position: absolute;
-        bottom:0;
+        z-index: 2;
+        top:6px;
         right:-6px;
         .size(16px,16px);
-        color:#000;
+        color:#333;
         background-color: #fff;
         font:bold 24px/16px Helvetica, Arial, sans-serif;
         text-align: center;
@@ -30,4 +29,47 @@
             display: block;
         }
     }
+ }
+    .wthumb_bd{
+        position: relative;
+        z-index: 1;
+        .size(50px,50px);
+        .border-radius(50%);
+        border:2px solid #dfdfdf;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+    }
+.theme-default .wthumblist_bd{
+    background-color: @colorDefault;
+}
+.theme-blue .wthumblist_bd {
+    background-color: @colorBlue;
+}
+.theme-orange .wthumblist_bd {
+    background-color: @colorOrange;
+}
+.theme-red .wthumblist_bd {
+    background-color: @colorRed;
+}
+.theme-green .wthumblist_bd {
+    background-color: @colorGreen;
+}
+.theme-darkgreen .wthumblist_bd {
+    background-color: @colorDarkGreen;
+}
+.theme-purple .wthumblist_bd {
+    background-color: @colorPurple;
+}
+.theme-darkred .wthumblist_bd {
+    background-color: @colorDarkRed;
+}
+.theme-darkblue .wthumblist_bd {
+    background-color: @colorDarkBlue;
+}
+.theme-yellow .wthumblist_bd {
+    background-color: @colorYellow;
+}
+.theme-grey .wthumblist_bd {
+    background-color: @colorGrey;
 }

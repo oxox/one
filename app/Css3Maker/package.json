@@ -1,0 +1,12 @@
+{
+  "name": "Css3Maker",
+  "main": "http://www.css3maker.com/",
+  "version": "0.0.1",
+  "keywords":["css3maker"],
+  "description": "CSS 3.0 MAKER",
+  "homepage": "http://www.css3maker.com/",
+  "window": {
+    "icon":"icon.png"
+  },
+  "private": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "JsCompress",
+  "main": "http://jscompress.com/",
+  "version": "0.0.1",
+  "keywords":["jscompress","js","javascript","compression"],
+  "description": "Online Javascript Compression Tool",
+  "homepage": "http://jscompress.com/",
+  "window": {
+    "icon":"icon.png"
+  },
+  "private": true
+}
