@@ -1,0 +1,12 @@
+{
+  "name": "YUICompressor",
+  "main": "http://refresh-sf.com/yui/",
+  "version": "1.0.0",
+  "keywords":["YUICompressor","compression"],
+  "description": "Online JavaScript/CSS Compression Using YUI Compressor",
+  "homepage": "http://refresh-sf.com/yui/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}
