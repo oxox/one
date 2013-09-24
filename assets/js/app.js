@@ -20,6 +20,7 @@ J(function($,p,pub){
         },
         initEvts:function(){
             $('#widget_scroll_container').modernui({
+                widgetData:pub.appList.files,
                 onShowExternal:function(widgetData){
                     // Open URL with default browser.
                     J.base.gui.Shell.openExternal(widgetData.url);

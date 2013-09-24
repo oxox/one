@@ -1,5 +1,6 @@
 .wthumblist{
     position: fixed;
+    z-index: 201;
     top:0;
     bottom:0;
     left:-65px;
@@ -19,10 +20,12 @@
         top:6px;
         right:-6px;
         .size(16px,16px);
-        color:#333;
-        background-color: #fff;
-        font:bold 24px/16px Helvetica, Arial, sans-serif;
+        color:#fff;
+        background-color: #333;
+        font:20px/16px Helvetica, Arial, sans-serif;
         text-align: center;
+        text-decoration: none;
+        border-radius: 3px;
     }
     &:hover{
         .close{
@@ -40,6 +43,9 @@
         background-position: center center;
         background-size: cover;
     }
+.wthumb_on .wthumb_bd{
+    border-color:#333;
+}
 .theme-default .wthumblist_bd{
     background-color: @colorDefault;
 }

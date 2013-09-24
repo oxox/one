@@ -17,6 +17,7 @@ J(function($,p,pub){
     pub.localdb = win0.localStorage||{};
     pub.session = win0.sessionStorage||{};
     pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
+    pub.appRootUrl = 'file:///'+pub.appRoot.replace(/\\/gi,'/');
 
     //package json
     if ( !(pub.package=pub.session['package']) ) {
@@ -143,7 +144,7 @@ J(function($,p,pub){
 	 * @param {String} testStr 待检测的字符串
 	 */
 	pub.isUrl = function(testStr){
-		return (testStr.indexOf('http://')===0);
+		return (testStr.indexOf('http://')===0||testStr.indexOf('file://')===0);
 	};
 	/**
 	* 获取指定目录匹配正则表达式的文件

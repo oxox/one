@@ -6,7 +6,7 @@
   "description": "CSS 3.0 MAKER",
   "homepage": "http://www.css3maker.com/",
   "window": {
-    "icon":"icon.png"
+    "icon":null
   },
   "private": true
 }

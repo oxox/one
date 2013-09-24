@@ -5,7 +5,13 @@
  */
 (function($){
     var $win = $(window),
-        evtNamespace = ".ModernUI";
+        evtNamespace = ".ModernUI",
+        EVT = {//global event flags
+            widgetLoaded:'onWidgetLoaded'+evtNamespace,
+            widgetLoading:'onWidgetLoading'+evtNamespace,
+            widgetClosing:'onWidgetClosing'+evtNamespace,
+            widgetActiving:'onWidgetActiving'+evtNamespace
+        };
     /**
      * Internal core class for mordenui
      * @class modernui
@@ -50,10 +56,14 @@
 
             this._animateWidgets();
             
+            //data module
+            model.data._init(this.opts);
             //preview module
             model.preview._init(this.opts);
             //sidebar module
             model.sidebar._init(this.$widget_sidebar,this.opts);
+            //switchlist module
+            model.switchlist._init(this.opts);
         },
         _animateWidgets:function(){
             //widget effect
@@ -107,6 +117,27 @@
         }
     };
 
+    //data module
+    model.data={
+        cache:{},
+        _init:function(opts){
+            this.widgets=opts.widgetData||[];
+            this.cnt = this.widgets.length;
+            var tempData = null;
+            for(var i=0;i<this.cnt;i++){
+                tempData = this.widgets[i].data||{};
+                tempData.id = 'widget_'+tempData.name;
+                this.cache[tempData.id]=tempData;
+            };
+        },
+        get:function(k){
+            return (this.cache[k]||null);
+        },
+        exists:function(k){
+            return (this.get(key)!==null);
+        }
+    };
+
     //preview模块
     model.preview = {
         suffix:'-detail',
@@ -115,8 +146,8 @@
         clHideHeader:'hide_hd',
         activeId:null,
         zIndex:1,
-        cache:{},
         timer:null,
+        cache:{},
         _init:function(opts){
             var me = this;
             this.opts = opts;
@@ -132,6 +163,12 @@
                 if(me.opts.autoHideHeader){
                     me.hideHeader();
                 }
+            });
+            //点击switchlist的关闭按钮时
+            $win.on(EVT.widgetClosing,function(e,d){
+                model.preview.destroy();
+            }).on(EVT.widgetActiving,function(e,d){
+                model.preview.show(d);
             });
         },
         showLoading:function(css){
@@ -159,10 +196,32 @@
             this.$widget.removeClass(this.clHideHeader);
         },
         show:function(id){
+            
+            if(this.activeId === id){
+                return;
+            };
+
+            //close current widget firstly
+            this.close();
+
+            var cacheData = this.cache[id];
+            if(cacheData){
+                this.showLoading(cacheData.css);
+                return this.active(id,cacheData);
+            }
+
             var $widget = $('#'+id),
-                data = $widget.data();
+                css = {
+                    'background-color':$widget.css("background-color"),
+                    'background-image':$widget.find('.main').css("background-image")
+                },
+                selfData = $widget.data(),
+                data = model.data.get(id);
+
             data.title = this.opts.title_prefix+data.name;
-            data.id=id;
+            data.css = css;
+            data = $.extend(data,selfData);
+
             if (data.target&&data.target==='_blank') {
                 if(this.opts.onShowExternal){
                     return this.opts.onShowExternal.call(this,data);
@@ -170,49 +229,46 @@
                 return window.open(data.url,"_blank");
             };
             
-            if(this.activeId === id){
-                return;
-            };
-            
-            var css = {
-                'background-color':$widget.css("background-color"),
-                'background-image':$widget.find('.main').css("background-image")
-            };
-            
             this.showLoading(css);
-            
-            if(this.cache[id]){
-                return this.active(id);
-            };
-            
-            model.history.set(data,true,this.opts.baseUrl);
-            
             //new preview
             this._loadWidget(data,function(widgetData){
-                $win.trigger('onWidgetLoaded'+evtNamespace,[widgetData]);
+                $win.trigger(EVT.widgetLoaded,[widgetData]);
                 model.preview.cache[widgetData.id]=widgetData;
-                model.preview.active(widgetData.id);
+                model.preview.active(widgetData.id,widgetData);
             });
         },
-        active:function(widgetId){
+        active:function(widgetId,data){
             this.activeId = widgetId;
             this.$widget = $('#'+this.getId(widgetId)).addClass('open');
             this.$dom.addClass(this.clLoaded);
             this.hideLoading();
+            model.history.set(data,true,this.opts.baseUrl);
+            model.switchlist.add(data);
             if(this.opts.autoHideHeader){
                 this.hideHeader();
             }
         },
         close:function(){
+            if(this.activeId===null){
+                return;
+            }
             this.$widget.removeClass('open '+this.clHideHeader);
             this.$dom.removeClass('open '+this.clLoaded);
             clearTimeout(this.timer);
             this.activeId = null;
+            model.switchlist.deactive();
         },
-        destroy:function(widgetId){
+        destroy:function(){
+            var id = this.activeId;
+            this.close();
+            this.remove(id);
+        },
+        remove:function(widgetId){
+            widgetId = widgetId||this.activeId;
             var id = this.getId(widgetId);
             $('#'+id).remove();
-            this.cache[widgetId]=null;
+            this.cache[id]=null;
+            model.switchlist.remove(widgetId);
         },
         getId:function(widgetId){
             return (widgetId+this.suffix);
@@ -232,7 +288,7 @@
                 return;
             };
 
-            $win.trigger('onWidgetLoading'+evtNamespace,[widgetData]);
+            $win.trigger(EVT.widgetLoading,[widgetData]);
 
             if(this.opts.previewInIframe){
                 this.$detailBox.append($.fn.modernui.evalTpl(this.opts.tplWidgetDetail2,widgetData));
@@ -269,7 +325,7 @@
         action:function(act){
             switch(act){
                 case 'close':
-                    model.preview.close();
+                    model.preview.destroy();
                 break;
                 case 'refresh':
                     model.preview.refresh();
@@ -279,6 +335,9 @@
                 break;
                 case 'next':
                     alert('Not implemented!');
+                break;
+                case 'minimize':
+                    model.preview.close();
                 break;
             }//switch
         }
@@ -301,8 +360,67 @@
 
     //switchlist bar
     model.switchlist = {
-        _init:function(){
-
+        $active:null,
+        _init:function(opts){
+            this.opts=opts;
+            this.$dom = $(opts.cssWidgetSwitchlist);
+            this.$bd = $(opts.cssWidgetSwitchlistBD);
+            this._initEvt();
+        },
+        _initEvt:function(){
+            $win.on(EVT.widgetLoaded,function(e,d){
+                model.switchlist.add(d);
+            });
+            this.$bd.on('click','.close',function(e){
+                //close specified widget
+                model.switchlist.remove(this.rel);
+                $win.trigger(EVT.widgetClosing,[this.rel]);
+                return false;
+            }).on('click','.wthumb',function(e){
+                //active specified widget
+                $win.trigger(EVT.widgetActiving,[this.getAttribute('data-id')]);
+                return false;
+            });
+        },
+        deactive:function(){
+            if(this.$active){
+                this.$active.removeClass('wthumb_on');
+                this.$active = null;
+            };
+        },
+        active:function($d){
+            this.deactive();
+            this.$active = $d.addClass('wthumb_on');
+        },
+        add:function(d){
+            var $d = this.exists(d.id);
+            if ($d) {
+                this.active($d);
+                return;
+            };
+            this.$bd.prepend($.fn.modernui.evalTpl(this.opts.tplWidgetThumb,d));
+            $d = this.getById(d.id);
+            this.active($d);
+        },
+        remove:function(baseId){
+            var $d = $('#'+this.getId(baseId));
+            if ($d.length===0) {
+                return;
+            };
+            $d.remove();
+        },
+        getId:function(baseId){
+            return (baseId+'-thumb');
+        },
+        getById:function(baseId){
+            return $('#'+this.getId(baseId));
+        },
+        exists:function(baseId){
+            var $d =this.getById(baseId);
+            if($d.length===0){
+                return null;
+            };
+            return $d;
         }
     };
 
@@ -355,14 +473,17 @@
         cssWidgetDetailBox:'#widget_detail_box',
         cssWidgetSidebar:'#widget_sidebar',
         cssWidgetLoading:'#widget_loading',
+        cssWidgetSwitchlist:'#widgetSwitchlist',
+        cssWidgetSwitchlistBD:'#widgetSwitchlistBD',
+        widgetData:null,
         previewInIframe:true,
         autoHideHeader:true,
         autoHideHeaderDelay:2000,
         baseUrl:location.href,
         title_prefix:'One - ',
         tplWidgetDetail1:'<div id="%id%-detail" class="widget_detail">%html%</div>',
-        tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><div class="widget_detail_hd"><h1 class="widget_name">%name%</h1></div><div class="widget_detail_bd"><iframe id="if_%id%-detail" src="%url%" frameborder="0"></iframe></div></div>',
-        tplWidgetThumb:'<div class="wthumb" style="background-image:url(../app/About/icon.png);"><a href="javascript:;" class="close">&times;</a></div>'
+        tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><div class="widget_detail_hd"><h1 class="widget_name">%name%</h1></div><div class="widget_detail_bd"><iframe id="if_%id%-detail" src="%appUrl%" frameborder="0"></iframe></div></div>',
+        tplWidgetThumb:'<div id="%id%-thumb" data-id="%id%" class="wthumb"><div class="wthumb_bd" style="background-image:url(%icon%);"></div><a rel="%id%" href="javascript:;" class="close">&times;</a></div>'
     };
     /**
      * simple template utility method

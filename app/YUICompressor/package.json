@@ -6,7 +6,7 @@
   "description": "Online JavaScript/CSS Compression Using YUI Compressor",
   "homepage": "http://refresh-sf.com/yui/",
   "window": {
-    "icon":""
+    "icon":"icon.png"
   },
   "private": true
 }

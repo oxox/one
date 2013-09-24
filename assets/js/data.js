@@ -17,14 +17,19 @@ J(function($,p,pub){
             };
             var files = d.files,
                 len = files.length,
-                tempObj=null;
+                tempObj=null,
+                defaultIcon = J.base.appRootUrl+'assets/img/nologo.png';
             for(var i =0;i<len;i++){
                 tempObj = J.base.fs.readJsonSync(files[i].path);
                 tempObj.window=tempObj.window||{};
-                tempObj.window.icon=tempObj.window.icon||'icon.png';
+                tempObj.window.icon=tempObj.window.icon||defaultIcon;
                 tempObj.urlRoot = files[i].urlRoot;
                 tempObj.appUrl = J.base.isUrl(tempObj.main)?tempObj.main:(tempObj.urlRoot+tempObj.main);
-                tempObj.icon = J.base.isUrl(tempObj.window.icon)?tempObj.window.icon:(tempObj.urlRoot+tempObj.window.icon);
+                if(J.base.isUrl(tempObj.window.icon)){
+                    tempObj.icon = tempObj.window.icon;
+                }else{
+                    tempObj.icon = tempObj.urlRoot+tempObj.window.icon;
+                }
                 files[i].data = tempObj;
             };//for
             d.files=files;

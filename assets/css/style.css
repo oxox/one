@@ -841,6 +841,7 @@ body.touch div.widget:hover {
 }
 .wthumblist {
   position: fixed;
+  z-index: 201;
   top: 0;
   bottom: 0;
   left: -65px;
@@ -865,10 +866,12 @@ body.touch div.widget:hover {
   right: -6px;
   width: 16px;
   height: 16px;
-  color: #333;
-  background-color: #fff;
-  font: bold 24px/16px Helvetica, Arial, sans-serif;
+  color: #fff;
+  background-color: #333;
+  font: 20px/16px Helvetica, Arial, sans-serif;
   text-align: center;
+  text-decoration: none;
+  border-radius: 3px;
 }
 .wthumb:hover .close {
   display: block;
@@ -884,6 +887,9 @@ body.touch div.widget:hover {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+}
+.wthumb_on .wthumb_bd {
+  border-color: #333;
 }
 .theme-default .wthumblist_bd {
   background-color: #be213e;
