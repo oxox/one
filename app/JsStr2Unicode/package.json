@@ -1,0 +1,12 @@
+{
+  "name": "JsStr2Unicode",
+  "main": "http://www.htmlescape.net/stringescape_tool.html",
+  "version": "0.0.1",
+  "keywords":["unicode","unicode encoder"],
+  "description": "escape string to unicode chars",
+  "homepage": "http://www.htmlescape.net/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}

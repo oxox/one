@@ -1,0 +1,12 @@
+{
+  "name": "UnicodeCodeConverter",
+  "main": "http://www.rishida.net/tools/conversion/",
+  "version": "0.0.1",
+  "keywords":["unicode","unicode encoder"],
+  "description": "escape string to unicode chars",
+  "homepage": "http://www.rishida.net/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}
