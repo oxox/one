@@ -5,5 +5,5 @@ set APPFOLDER=E:\Camp\Documents\GitHub\oxox\one
 copy %NWFOLDER%\*.dll %APPFOLDER%
 copy %NWFOLDER%\nw.exe %APPFOLDER%
 copy %NWFOLDER%\nw.pak %APPFOLDER%
-start "" %NWEXE% --url="file:///E:/Camp/Documents/GitHub/oxox/one/assets/index.html"
+start "" %NWEXE% --url="file:///%APPFOLDER%/assets/index.html"
 exit

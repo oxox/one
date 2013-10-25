@@ -1,0 +1,12 @@
+{
+  "name": "HslColorPicker",
+  "main": "http://hslpicker.com/",
+  "version": "0.0.1",
+  "keywords":["css3","hsla","hsl"],
+  "description": "hsla color picker",
+  "homepage": "http://hslpicker.com/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}
