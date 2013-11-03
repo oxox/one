@@ -1,0 +1,12 @@
+{
+  "name": "Json Viewer",
+  "main": "http://jsonviewer.stack.hu/",
+  "version": "0.0.1",
+  "keywords":["json"],
+  "description": "online json viewer",
+  "homepage": "http://jsonviewer.stack.hu/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}
