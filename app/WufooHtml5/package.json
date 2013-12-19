@@ -1,0 +1,12 @@
+{
+  "name": "Woofu HTML5",
+  "main": "http://www.wufoo.com/html5/",
+  "version": "0.0.1",
+  "keywords":["html5"],
+  "description": "The Current State of HTML5 Forms",
+  "homepage": "http://hslpicker.com/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "DirtyMarkup",
+  "main": "http://www.dirtymarkup.com/",
+  "version": "0.0.1",
+  "keywords":["js beautify","html tidy","css tidy"],
+  "description": "DirtyMarkup combines the power of HTML Tidy, CSS Tidy, JS Beautify, and the Ace editor to effortlessly clean up your messy code",
+  "homepage": "http://www.dirtymarkup.com/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}

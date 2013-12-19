@@ -1,0 +1,12 @@
+{
+  "name": "CubicBezier",
+  "main": "http://cubic-bezier.com/",
+  "version": "0.0.1",
+  "keywords":["bezier","cubic bezier"],
+  "description": "cubic bezier",
+  "homepage": "http://cubic-bezier.com/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}

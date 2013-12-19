@@ -1,0 +1,12 @@
+{
+  "name": "Base64Image",
+  "main": "http://www.base64-image.de/",
+  "version": "0.0.1",
+  "keywords":["base64","base64 encoder"],
+  "description": "Convert any image into a base64 string",
+  "homepage": "http://www.base64-image.de/",
+  "window": {
+    "icon":""
+  },
+  "private": true
+}
