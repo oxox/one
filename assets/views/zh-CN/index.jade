@@ -1,14 +1,15 @@
 mixin widget(obj)
-    div.widget.widget2x2.widget_purple.widget_link.animation.unloaded(
+    .widget.widget2x2.widget_purple.widget_link.animation.unloaded(
         data-theme="purple",
         id="widget_#{obj.name}"
         )
-        div.widget_content
-            div.main(style="background-image:url('#{obj.icon}');")
-                span #{obj.name}
+        .widget_content
+            .widget_main
+                .widget_bg(style="background-image:url('#{obj.icon}');")
+                .widget_tit #{obj.name}
 
 if cntFile
 each obj in files
     +widget(obj.data)
 else
-    div.alert No Apps found!
+    .alert No Apps found!

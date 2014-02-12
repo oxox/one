@@ -68,10 +68,10 @@ fieldset {
   top: 8%;
   left: 60px;
 }
-div.page_content {
+.page_content {
   padding: 16px;
 }
-div.widget_container {
+.widget_container {
   position: relative;
   margin-right: 50px;
   /* when this value is changed, make sure its also updated in ui class ($container_margin) */
@@ -83,10 +83,10 @@ div.widget_container {
   -webkit-perspective: 1000px;
   perspective: 1000px;
 }
-div.widget_container:last-child {
+.widget_container:last-child {
   margin-right: 0px;
 }
-div.widget {
+.widget {
   float: left;
   position: relative;
   color: #FFFFFF;
@@ -102,69 +102,77 @@ div.widget {
   -webkit-transform: rotateY(0deg);
   transform: rotateY(0deg);
 }
-div.widget.unloaded {
+.widget.unloaded {
   opacity: 0;
   -webkit-transform: rotateY(-90deg);
   transform: rotateY(-90deg);
 }
-div.widget.animation {
+.widget.animation {
   -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
   transition: opacity 0.3s, transform 0.3s;
 }
-div.widget:hover {
+.widget:hover {
   z-index: 10;
   border: 3px solid rgba(255, 255, 255, 0.4);
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
 }
-div.widget_link {
+.widget a {
+  color: #FFFFFF;
+}
+.widget_link {
   cursor: pointer;
 }
 /* when this value is changed, make sure its also updated in ui class ($widget_width_big) */
-div.widget1x1 {
+.widget1x1 {
   width: 90px;
   height: 90px;
 }
-div.widget2x2 {
-  width: 190px;
-  height: 190px;
-}
-div.widget4x2 {
-  width: 390px;
-  height: 190px;
-}
-div.widget1x1:hover {
+.widget1x1:hover {
   width: 84px;
   height: 84px;
 }
-div.widget2x2:hover {
+.widget2x2 {
+  width: 190px;
+  height: 190px;
+}
+.widget2x2:hover {
   width: 184px;
   height: 184px;
 }
-div.widget4x2:hover {
+.widget4x2 {
+  width: 390px;
+  height: 190px;
+}
+.widget4x2:hover {
   width: 384px;
   height: 184px;
 }
-div.widget a {
-  color: #FFFFFF;
-}
-div.widget div.main {
+.widget_main {
   overflow: hidden;
   position: absolute;
   left: 0px;
   right: 0px;
   height: 100%;
-  top: 100%;
+  top: 0;
   -webkit-transition: top 0.4s;
   transition: top 0.4s;
 }
-div.widget div.main {
-  height: 100%;
-  top: 0px;
+.widget_bg {
+  position: absolute;
+  z-index: 1;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -40px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 50%;
 }
-div.widget div.widget_content {
+.widget_content {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -172,7 +180,7 @@ div.widget div.widget_content {
   left: 5px;
   overflow: hidden;
 }
-div.widget div.main > span {
+.widget_tit {
   display: block;
   position: absolute;
   bottom: 0px;
@@ -234,27 +242,27 @@ Compact Mode
 */
 @media screen and (max-height: 680px) {
   /* when this value is changed, make sure its also updated in ui class ($widget_width_small) */
-  div.widget1x1 {
+  .widget1x1 {
     width: 65px;
     height: 65px;
   }
-  div.widget2x2 {
-    width: 140px;
-    height: 140px;
-  }
-  div.widget4x2 {
-    width: 290px;
-    height: 140px;
-  }
-  div.widget1x1:hover {
+  .widget1x1:hover {
     width: 59px;
     height: 59px;
   }
-  div.widget2x2:hover {
+  .widget2x2 {
+    width: 140px;
+    height: 140px;
+  }
+  .widget2x2:hover {
     width: 134px;
     height: 134px;
   }
-  div.widget4x2:hover {
+  .widget4x2 {
+    width: 290px;
+    height: 140px;
+  }
+  .widget4x2:hover {
     width: 284px;
     height: 134px;
   }
@@ -262,10 +270,10 @@ Compact Mode
 /*
 touch
 */
-body.touch {
+.touch {
   overflow: auto;
 }
-body.touch div.widget:hover {
+.touch .widget:hover {
   border: none;
   -webkit-transform: scale(1);
   transform: scale(1);
