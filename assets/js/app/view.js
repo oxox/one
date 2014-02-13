@@ -5,20 +5,22 @@
  * @static
  * @requires J.base,async,jade,path
  */
-J(function($,p,pub){
+define(['jquery','./base'],function($,B){
+
+    var pub = {};
     pub.id='view';
     
     var async = require('async'),
         jade = require('jade'),
         path = require('path');
 
-    pub.viewPath = J.base.appRoot+'assets\\views\\'+J.ini.data.language+'\\';
-    pub.defaultPath = J.base.appRoot+'assets\\views\\'+J.ini.data.defaultLanguage+'\\';
+    pub.viewPath = B.appRoot+'assets\\views\\'+B.iniData.language+'\\';
+    pub.defaultPath = B.appRoot+'assets\\views\\'+B.iniData.defaultLanguage+'\\';
     pub.view={};
     pub.files={};
 
     pub.ready = function(cbk){
-        J.base.fs.readdir(pub.viewPath,function(err,files){
+        B.fs.readdir(pub.viewPath,function(err,files){
             if (err) {
                 return cbk(err);
             };
@@ -32,7 +34,7 @@ J(function($,p,pub){
                 fileNameList[i] = path.basename(files[i],'.jade');
             };
             //read all template files
-            async.map(files,J.base.fs.readFile,function(err1,files1){
+            async.map(files,B.fs.readFile,function(err1,files1){
                 if (err1) {
                     return cbk(err1);
                 };
@@ -62,4 +64,5 @@ J(function($,p,pub){
     pub.render = function(name,data){
         return pub.view[name](data);
     };
+    return pub;
 });

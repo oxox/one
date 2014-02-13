@@ -1,5 +1,5 @@
 {
-  "name": "Json Viewer",
+  "name": "JsonViewer",
   "main": "http://jsonviewer.stack.hu/",
   "version": "0.0.1",
   "keywords":["json"],

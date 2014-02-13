@@ -1,9 +1,11 @@
-J(function($,p,pub){
+define(['jquery','./base','./view','jquery.removeClassByPrefix'],function($,B,V){
+
+    var p ={},pub={};
     pub.id = "themepicker";
     
     p.V = {
         _init:function(){
-            J.base.$win.on(J.base.EVT.viewReady,function(e){
+            B.$win.on(B.EVT.viewReady,function(e){
                 p.V.render();
             });
             
@@ -11,7 +13,7 @@ J(function($,p,pub){
         $curTheme:null,
         _initEvt:function(){
             $('#themePicker').on('click','#themepickerToggle',function(e){
-                J.base.$body.toggleClass('themepicker_active');
+                B.$body.toggleClass('themepicker_active');
             }).on('click','.theme',function(e){
                 
                 if(p.V.$curTheme.is(this)){
@@ -19,17 +21,21 @@ J(function($,p,pub){
                 }
                 var clOn = 'selected';
                 p.V.$curTheme.removeClass(clOn);
-                J.base.$body.removeClassByPrefix('theme-')
+                B.$body.removeClassByPrefix('theme-')
                     .addClass(this.getAttribute('data-name'));
                 p.V.$curTheme = $(this).addClass(clOn);
             });
             
         },
         render:function(){
-            J.base.$body.append(J.view.render(pub.id));
+            B.$body.append(V.render(pub.id));
             this.$curTheme = $('#themePicker').find('.theme:eq(0)');
             this._initEvt();
         }
     };
+
+    p.V._init();
+
+    return pub;
     
 });

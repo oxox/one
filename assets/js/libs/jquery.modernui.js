@@ -3,7 +3,8 @@
  * @author levin
  * @version 1.0.0
  */
-(function($){
+define(['jquery','jquery.modernloading'],function($){
+
     var $win = $(window),
         evtNamespace = ".ModernUI",
         EVT = {//global event flags
@@ -213,7 +214,7 @@
             var $widget = $('#'+id),
                 css = {
                     'background-color':$widget.css("background-color"),
-                    'background-image':$widget.find('.main').css("background-image")
+                    'background-image':$widget.find('.widget_bg').css("background-image")
                 },
                 selfData = $widget.data(),
                 data = model.data.get(id);
@@ -500,4 +501,5 @@
         };
         return str;
     };
-})(jQuery);
+
+});

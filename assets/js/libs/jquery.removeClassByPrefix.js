@@ -9,8 +9,8 @@
  * http://stackoverflow.com/questions/57812/jquery-remove-all-classes-that-begin-with-a-certain-string#comment14232343_58533
  * https://gist.github.com/mamboer/6191743
 */
-(function ( $ ) {
- 
+define(['jquery'],function($){
+
     $.fn.removeClassByPrefix = function (prefix) {
         this.each( function ( i, it ) {
             var classes = $.map(it.className.split(" "),function (item) {
@@ -21,5 +21,5 @@
      
         return this;
     }
- 
-})( jQuery );
+
+});

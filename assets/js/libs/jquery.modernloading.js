@@ -4,7 +4,8 @@
  * @created 7/14/13 11:20 AM
  * @version 1.0.0
  */
-(function($){
+define(['jquery','rAF'],function($){
+
     var $win = $(window);
     /**
      * Internal core class for modernui
@@ -27,7 +28,7 @@
          */
         this.opts = opts0;
         this.templateData = [];
-        this.timer = null;
+        this.timer = {};
         this.isRunning=false;
         this._init();
     };
@@ -55,8 +56,8 @@
         animate:function(){
             this.$dots.toggleClass(this.opts.clAni);
             var me = this;
-            clearTimeout(me.timer);
-            this.timer=setTimeout(function(){
+            clearRequestTimeout(me.timer);
+            this.timer=requestTimeout(function(){
                 me.animate();
             },this.opts.maxAniDuration*1000);
 
@@ -69,7 +70,7 @@
             this.isRunning=true;
         },
         stop:function(){
-            clearTimeout(this.timer);
+            clearRequestTimeout(this.timer);
             this.$dots.removeClass(this.opts.clAni);
             this.isRunning=false;
             return this;
@@ -150,4 +151,5 @@
         };
         return str;
     };
-})(jQuery);
+
+});
