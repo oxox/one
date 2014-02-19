@@ -5,11 +5,19 @@
 requirejs.config({
     "baseUrl": "js/libs",
     "paths": {
-        "app": "../app",
         "jquery": "jquery-2.1.0.min",
-        "rAF":"rAF"
+        "rAF":"rAF",
+        "../app/main":"../app/main-built"
     }
 });
 
+if(window.location.href.indexOf('debug')!==-1){
+    requirejs.config({
+        "paths":{
+            "../app/main":"../app/main"
+        }
+    });
+}
+
 // Load the main app module to start the app
-requirejs(["app/main"]);
+requirejs(["../app/main"]);
