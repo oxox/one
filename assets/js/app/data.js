@@ -8,7 +8,7 @@ define(['jquery','./base'],function($,B){
      */
     pub.getApps = function(cbk){
         B.getFiles({
-            path:B.appRoot+'app\\',
+            path:B.path.join(B.appRoot,'app',B.path.sep),
             level:1,
             fileFilter:/package.json/,
             ignoreFolders:['.git']

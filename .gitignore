@@ -2,3 +2,8 @@ gh-pages/
 *.dll
 nw.exe
 nw.pak
+node-webkit.app/
+nwsnapshot
+credits.html
+node_modules/
+.DS_Store

@@ -3,7 +3,7 @@
  * @module core
  * @class view
  * @static
- * @requires J.base,async,jade,path
+ * @requires J.base,async,jade
  */
 define(['jquery','./base'],function($,B){
 
@@ -12,10 +12,10 @@ define(['jquery','./base'],function($,B){
     
     var async = require('async'),
         jade = require('jade'),
-        path = require('path');
+        path = B.path;
 
-    pub.viewPath = B.appRoot+'assets\\views\\'+B.iniData.language+'\\';
-    pub.defaultPath = B.appRoot+'assets\\views\\'+B.iniData.defaultLanguage+'\\';
+    pub.viewPath = path.join(B.appRoot,'assets','views',B.iniData.language,path.sep);
+    pub.defaultPath = path.join(B.appRoot,'assets','views'+B.iniData.defaultLanguage,path.sep);
     pub.view={};
     pub.files={};
 

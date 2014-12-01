@@ -43,6 +43,7 @@ define([
     
     V.ready(function(err){
         if (err) {
+            console.log(err);
             alert(err.toString());
             return;
         };

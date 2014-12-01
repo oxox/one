@@ -19,19 +19,15 @@ define(['jquery','./tray'],function($,T){
     pub.userName = process.env['USERNAME'];
     pub.localdb = win0.localStorage||{};
     pub.session = win0.sessionStorage||{};
-    pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf('\\')+1);
+    //pub.appRoot = process.execPath.substr(0,process.execPath.lastIndexOf(pub.path.sep)+1);
+    pub.appRoot = pub.path.join(process.env.PWD,pub.path.sep);
     pub.appRootUrl = 'file:///'+pub.appRoot.replace(/\\/gi,'/');
 
     //package json
-    if ( !(pub.package=pub.session['package']) ) {
-        pub.package = pub.fs.readJsonSync(pub.appRoot+'package.json');
-        pub.session['package'] = JSON.stringify(pub.package);
-    }else{
-        pub.package = JSON.parse(pub.package);
-    };
+    pub.package = pub.gui.App.manifest;
 
-    pub.dataRoot = pub.appRoot+"data\\$\\".replace('$',pub.package.name);
-    pub.initFile = pub.dataRoot+"app.ini";
+    pub.dataRoot = pub.path.join(pub.appRoot,"data",pub.package.name);;
+    pub.initFile = pub.path.join(pub.dataRoot,"app.ini");
     pub.$win = $(win0);
     pub.$body = $('body');
 
@@ -94,7 +90,7 @@ define(['jquery','./tray'],function($,T){
      * @param {String} filePath 文件路径
      */
     pub.getFileRootPath=function(filePath){
-        var idx = ( idx=filePath.lastIndexOf('\\') )>=0?idx:filePath.lastIndexOf('/');
+        var idx = ( idx=filePath.lastIndexOf(pub.path.sep) )>=0?idx:filePath.lastIndexOf('/');
         if (idx<0) {
             return null;
         };
