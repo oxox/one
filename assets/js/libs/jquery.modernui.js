@@ -1,9 +1,9 @@
 /**
  * jQuery.modernui.js
  * @author levin
- * @version 1.0.0
+ * @version 1.0.1
  */
-define(['jquery','jquery.modernloading'],function($){
+define(['jquery','jquery.modernloading'],function($,HIS){
 
     var $win = $(window),
         evtNamespace = ".ModernUI",
@@ -65,6 +65,19 @@ define(['jquery','jquery.modernloading'],function($){
             model.sidebar._init(this.$widget_sidebar,this.opts);
             //switchlist module
             model.switchlist._init(this.opts);
+
+            //check hash
+            this._checkHash();
+        },
+        _checkHash:function(){
+            var hash = location.hash,
+                $curWidget = null;
+            if(hash.length>1){
+                $curWidget = $(hash);
+                if( $curWidget.size()===1 ){
+                    $curWidget.trigger('click'+evtNamespace,[{id:hash.replace('#',''),replaceState:true}]);
+                };
+            };
         },
         _animateWidgets:function(){
             //widget effect
@@ -84,15 +97,17 @@ define(['jquery','jquery.modernloading'],function($){
             this._onResize();
             $win.on('resize'+this.ns,function(e){
                 me._onResize();
-            }).on('popstate',function(e){
-                if ( (!e.state) || (!e.state.url) ) {
+            });
+
+            $win[0].addEventListener('popstate',function(e){
+                if ( (!e.state) || (!e.state.appUrl) ) {
                     return;
                 }
                 me.openWidget(e.state.id);
             });
 
-            this.$container.on('click'+evtNamespace,this.opts.cssWidget,function(e){
-                me.openWidget(this.id);
+            this.$container.on('click'+evtNamespace,this.opts.cssWidget,function(e,d){
+                me.openWidget(this.id,d);
                 return false;
             });
         },
@@ -106,8 +121,8 @@ define(['jquery','jquery.modernloading'],function($){
         destroyWidget:function(id){
             model.preview.destroy(id);
         },
-        openWidget : function(id){
-            model.preview.show(id);
+        openWidget : function(id,d){
+            model.preview.show(id,d);
         },
         //update the options
         _update: function (opts,reInit) {
@@ -196,7 +211,7 @@ define(['jquery','jquery.modernloading'],function($){
             clearTimeout(this.timer);
             this.$widget.removeClass(this.clHideHeader);
         },
-        show:function(id){
+        show:function(id,opts){
             
             if(this.activeId === id){
                 return;
@@ -208,7 +223,7 @@ define(['jquery','jquery.modernloading'],function($){
             var cacheData = this.cache[id];
             if(cacheData){
                 this.showLoading(cacheData.css);
-                return this.active(id,cacheData);
+                return this.active(id,cacheData,opts);
             }
 
             var $widget = $('#'+id),
@@ -235,15 +250,16 @@ define(['jquery','jquery.modernloading'],function($){
             this._loadWidget(data,function(widgetData){
                 $win.trigger(EVT.widgetLoaded,[widgetData]);
                 model.preview.cache[widgetData.id]=widgetData;
-                model.preview.active(widgetData.id,widgetData);
+                model.preview.active(widgetData.id,widgetData,opts);
             });
         },
-        active:function(widgetId,data){
+        active:function(widgetId,data,opts){
+            opts = opts || {};
             this.activeId = widgetId;
             this.$widget = $('#'+this.getId(widgetId)).addClass('open');
             this.$dom.addClass(this.clLoaded);
             this.hideLoading();
-            model.history.set(data,true,this.opts.baseUrl);
+            model.history.set(data,!opts.replaceState,this.opts.baseUrl);
             model.switchlist.add(data);
             if(this.opts.autoHideHeader){
                 this.hideHeader();
@@ -480,7 +496,7 @@ define(['jquery','jquery.modernloading'],function($){
         previewInIframe:true,
         autoHideHeader:true,
         autoHideHeaderDelay:2000,
-        baseUrl:location.href,
+        baseUrl:location.href.replace(location.hash,''),
         title_prefix:'One - ',
         tplWidgetDetail1:'<div id="%id%-detail" class="widget_detail">%html%</div>',
         tplWidgetDetail2:'<div id="%id%-detail" class="widget_detail"><div class="widget_detail_hd"><h1 class="widget_name">%name%</h1></div><div class="widget_detail_bd"><iframe id="if_%id%-detail" src="%appUrl%" frameborder="0"></iframe></div></div>',

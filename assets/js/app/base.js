@@ -194,8 +194,8 @@ define(['jquery','./tray'],function($,T){
                     if(dirObj.folderFilter!==null&&files[i].match(dirObj.folderFilter)===null){
                         continue;
                     }
-                    d.folders.push(dirObj.path+files[i]+'\\');
-                    folders1.push(dirObj.path+files[i]+'\\');
+                    d.folders.push( pub.path.join(dirObj.path,files[i],pub.path.sep) );
+                    folders1.push( pub.path.join(dirObj.path,files[i],pub.path.sep) );
                     continue;
                 };
                 if (!stat.isFile()) {

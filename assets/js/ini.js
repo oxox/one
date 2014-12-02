@@ -5,7 +5,7 @@
 requirejs.config({
     "baseUrl": "js/libs",
     "paths": {
-        "jquery": "jquery-2.1.0.min",
+        "jquery": "jquery-2.1.1.min",
         "rAF":"rAF",
         "../app/main":"../app/main-built"
     }
